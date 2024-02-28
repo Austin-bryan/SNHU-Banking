@@ -1,7 +1,3 @@
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 namespace SNHU_Banking;
 
 public partial class MainForm : Form
@@ -23,7 +19,9 @@ public partial class MainForm : Form
                 pieChart1.AddAccountCategoryControl(acc);
             });
 
-
+        fromAccountBox.AddCategory("Checking", EAccountCategory.Checking);
+        fromAccountBox.AddCategory("Savings", EAccountCategory.Savings);
+        fromAccountBox.AddCategory("CDs", EAccountCategory.CDs);
     }
     private void AddCategory(ToolStripDropDownMenu menu, string category, string[] entries)
     {
@@ -56,41 +54,4 @@ public partial class MainForm : Form
     }
 
     public void AddBalancePreview(BalancePreview balancePreview) => balancePreviewPanel.Controls.Add(balancePreview);
-
-    private void MainForm_Load(object sender, EventArgs e)
-    {
-        // Populate data
-        List<(string Category, string[] Entries)> data = new List<(string, string[])>
-    {
-        ("Checking", new string[] { "Acc1", "Acc2", "Acc3" }),
-        ("Savings", new string[] { "Acc1", "Acc2" }),
-        ("CDs", new string[] { "Acc1", "Acc2", "Acc3" })
-    };
-
-        // Add items to the ListBox with custom formatting
-        foreach (var (category, entries) in data)
-        {
-            listBox.Items.Add(category); // Add category with bold formatting
-            foreach (string entry in entries)
-                listBox.Items.Add("    " + entry); // Add indented entry with regular formatting
-        }
-    }
-
-    // Custom drawing for the ListBox
-    private void listBox_DrawItem(object sender, DrawItemEventArgs e)
-    {
-        if (e.Index < 0)
-            return;
-
-        string itemText = listBox.Items[e.Index].ToString();
-        bool isCategory = !itemText.StartsWith("    "); // Check if item is a category
-
-        // Set font style based on category or entry
-        Font font = isCategory ? new Font(listBox.Font, FontStyle.Bold) : listBox.Font;
-
-        // Draw item
-        e.DrawBackground();
-        TextRenderer.DrawText(e.Graphics, itemText, font, e.Bounds, e.ForeColor, TextFormatFlags.Left);
-        e.DrawFocusRectangle();
-    }
 }
