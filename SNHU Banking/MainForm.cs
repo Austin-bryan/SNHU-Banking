@@ -19,9 +19,9 @@ public partial class MainForm : Form
                 pieChart1.AddAccountCategoryControl(acc);
             });
 
-        fromAccountBox.AddCategory("Checking", EAccountCategory.Checking);
-        fromAccountBox.AddCategory("Savings", EAccountCategory.Savings);
-        fromAccountBox.AddCategory("CDs", EAccountCategory.CDs);
+        //fromAccountBox.AddCategory("Checking", EAccountCategory.Checking);
+        //fromAccountBox.AddCategory("Savings", EAccountCategory.Savings);
+        //fromAccountBox.AddCategory("CDs", EAccountCategory.CDs);
     }
     private void AddCategory(ToolStripDropDownMenu menu, string category, string[] entries)
     {
