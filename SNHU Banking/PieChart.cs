@@ -18,13 +18,11 @@ public partial class PieChart : UserControl
         DrawPieChart();
     }
 
-    private void OnBalanceChange(decimal balance, decimal ytd)
-    {
-        DrawPieChart();
-    }
+    private void OnBalanceChange(decimal balance, decimal ytd) => DrawPieChart();
 
     private void DrawPieChart()
     {
+        // Pair the values and colors for each account category
         List<(decimal Value, Color Color)> valueColorPairs = accountCategoryControls
                 .Where(acc => acc.BankAccounts.Count > 0)
                 .ToList()
@@ -36,26 +34,30 @@ public partial class PieChart : UserControl
             total += value;
 
         // Set up drawing parameters
-        int pieRadius         = (int)(Math.Min(ClientSize.Width, ClientSize.Height) / 2.2);
-        int innerCircleRadius = 75;
-        float startAngle      = 0;
+        int pieRadius    = (int)(Math.Min(ClientSize.Width, ClientSize.Height) / 2.2);
+        int holeRadius   = 75;
+        float startAngle = 0;
 
-        // Draw pie slices
         using Graphics g = CreateGraphics();
 
         for (int i = 0; i < valueColorPairs.Count; i++)
         {
-            float sweepAngle = 360f * (float)valueColorPairs[i].Value / (float)total; // Subtract gap angle
+            // Makes pie slice wider as value increases
+            float sweepAngle = 360f * (float)valueColorPairs[i].Value / (float)total;
 
-            float sliceCenterAngle  = startAngle + sweepAngle / 2;
-            Point pieCenter         = new(Width / 2 - pieRadius, Height / 2 - pieRadius);
-            Point innerCircleCenter = new(Width / 2 - innerCircleRadius, Height / 2 - innerCircleRadius);
+            Point pieCenter  = new(Width / 2 - pieRadius, Height / 2 - pieRadius);      // Used for pie slices
+            Point holeCenter = new(Width / 2 - holeRadius, Height / 2 - holeRadius);    // Used to draw a hole in the pie
 
             using (Brush brush = new SolidBrush(valueColorPairs[i].Color))
             {
+                // Draws pie slices
                 g.FillPie(brush, pieCenter.X, pieCenter.Y, 2 * pieRadius, 2 * pieRadius, startAngle, sweepAngle);
-                g.DrawPie(new Pen(ThemePalette.ControlBackColor, 10), pieCenter.X, pieCenter.Y, 2 * pieRadius, 2 * pieRadius, startAngle, sweepAngle);
-                g.FillEllipse(new SolidBrush(BackColor), innerCircleCenter.X, innerCircleCenter.Y, innerCircleRadius * 2, innerCircleRadius * 2);
+                
+                // Adds a gap between slices
+                g.DrawPie(new Pen(ThemePalette.ControlBackColor, 7), pieCenter.X, pieCenter.Y, 2 * pieRadius, 2 * pieRadius, startAngle, sweepAngle);
+
+                // Fills a whole in the center
+                g.FillEllipse(new SolidBrush(BackColor), holeCenter.X, holeCenter.Y, holeRadius * 2, holeRadius * 2);
             }
 
             startAngle += sweepAngle; // Add gap angle for next slice

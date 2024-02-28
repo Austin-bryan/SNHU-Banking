@@ -49,7 +49,7 @@
             categorySelection.FlatStyle = FlatStyle.Flat;
             categorySelection.ForeColor = Color.White;
             categorySelection.FormattingEnabled = true;
-            categorySelection.Items.AddRange(new object[] { "Checking", "Savings", "Certificate of Deposit" });
+            categorySelection.Items.AddRange(new object[] { "Checkings", "Savings", "Certificate of Deposit" });
             categorySelection.Location = new Point(126, 61);
             categorySelection.Name = "categorySelection";
             categorySelection.Size = new Size(182, 23);
@@ -181,7 +181,6 @@
             Controls.Add(backgroundPanel);
             Controls.Add(sideBackground);
             Name = "NewAccountForm";
-            Text = "Create New Account";
             ((System.ComponentModel.ISupportInitialize)backgroundPanel).EndInit();
             ((System.ComponentModel.ISupportInitialize)sideBackground).EndInit();
             ResumeLayout(false);

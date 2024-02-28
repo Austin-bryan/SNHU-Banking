@@ -226,7 +226,7 @@
             // 
             accountsFlowPanel.BackColor = Color.FromArgb(60, 60, 60);
             accountsFlowPanel.Controls.Add(tableLayoutPanel1);
-            accountsFlowPanel.Location = new Point(26, 38);
+            accountsFlowPanel.Location = new Point(25, 41);
             accountsFlowPanel.Name = "accountsFlowPanel";
             accountsFlowPanel.Size = new Size(1344, 20);
             accountsFlowPanel.TabIndex = 10;

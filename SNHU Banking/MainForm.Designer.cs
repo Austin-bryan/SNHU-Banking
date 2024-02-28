@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             savingsControl = new AccountCategoryControl();
             cdControl = new AccountCategoryControl();
             checkingControl = new AccountCategoryControl();
             label1 = new Label();
             accountsPanel = new FlowLayoutPanel();
+            listBox = new ListBox();
             panel1 = new Panel();
+            pieChartTotalLabel = new Label();
             pieChart1 = new PieChart();
             balancePreviewPanel = new FlowLayoutPanel();
             label4 = new Label();
@@ -84,7 +85,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 25F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = SystemColors.ButtonFace;
-            label1.Location = new Point(46, 30);
+            label1.Location = new Point(23, 30);
             label1.Name = "label1";
             label1.Size = new Size(239, 46);
             label1.TabIndex = 3;
@@ -97,15 +98,28 @@
             accountsPanel.Controls.Add(checkingControl);
             accountsPanel.Controls.Add(savingsControl);
             accountsPanel.Controls.Add(cdControl);
-            accountsPanel.Controls.Add(panel1);
-            accountsPanel.Location = new Point(46, 79);
+            accountsPanel.Controls.Add(listBox);
+            accountsPanel.Location = new Point(23, 79);
             accountsPanel.Name = "accountsPanel";
-            accountsPanel.Size = new Size(1440, 896);
+            accountsPanel.Size = new Size(1417, 896);
             accountsPanel.TabIndex = 4;
+            // 
+            // listBox
+            // 
+            listBox.BackColor = Color.FromArgb(80, 80, 80);
+            listBox.BorderStyle = BorderStyle.None;
+            listBox.ForeColor = Color.White;
+            listBox.FormattingEnabled = true;
+            listBox.ItemHeight = 15;
+            listBox.Location = new Point(3, 378);
+            listBox.Name = "listBox";
+            listBox.Size = new Size(120, 90);
+            listBox.TabIndex = 3;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(60, 60, 60);
+            panel1.Controls.Add(pieChartTotalLabel);
             panel1.Controls.Add(pieChart1);
             panel1.Controls.Add(balancePreviewPanel);
             panel1.Controls.Add(label4);
@@ -113,10 +127,21 @@
             panel1.Controls.Add(line1);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
-            panel1.Location = new Point(3, 378);
+            panel1.Location = new Point(1446, 79);
             panel1.Name = "panel1";
             panel1.Size = new Size(450, 592);
             panel1.TabIndex = 3;
+            // 
+            // pieChartTotalLabel
+            // 
+            pieChartTotalLabel.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            pieChartTotalLabel.ForeColor = Color.White;
+            pieChartTotalLabel.Location = new Point(88, 558);
+            pieChartTotalLabel.Name = "pieChartTotalLabel";
+            pieChartTotalLabel.Size = new Size(349, 25);
+            pieChartTotalLabel.TabIndex = 8;
+            pieChartTotalLabel.Text = "$0.00";
+            pieChartTotalLabel.TextAlign = ContentAlignment.TopRight;
             // 
             // pieChart1
             // 
@@ -187,8 +212,10 @@
             ClientSize = new Size(1643, 1061);
             Controls.Add(accountsPanel);
             Controls.Add(label1);
+            Controls.Add(panel1);
             Name = "MainForm";
             Text = "Form1";
+            Load += MainForm_Load;
             accountsPanel.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -211,5 +238,7 @@
         private Line line2;
         private FlowLayoutPanel balancePreviewPanel;
         private PieChart pieChart1;
+        private Label pieChartTotalLabel;
+        private ListBox listBox;
     }
 }
