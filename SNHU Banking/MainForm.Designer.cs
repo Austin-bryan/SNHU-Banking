@@ -33,7 +33,13 @@
             checkingControl = new AccountCategoryControl();
             label1 = new Label();
             accountsPanel = new FlowLayoutPanel();
+            panel2 = new Panel();
+            layeredComboBox1 = new LayeredComboBox();
+            label5 = new Label();
+            line4 = new Line();
+            label7 = new Label();
             listBox = new ListBox();
+            label8 = new Label();
             panel1 = new Panel();
             pieChartTotalLabel = new Label();
             pieChart1 = new PieChart();
@@ -43,7 +49,10 @@
             line1 = new Line();
             label3 = new Label();
             label2 = new Label();
+            layeredComboBox2 = new LayeredComboBox();
+            label6 = new Label();
             accountsPanel.SuspendLayout();
+            panel2.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -98,11 +107,63 @@
             accountsPanel.Controls.Add(checkingControl);
             accountsPanel.Controls.Add(savingsControl);
             accountsPanel.Controls.Add(cdControl);
-            accountsPanel.Controls.Add(listBox);
+            accountsPanel.Controls.Add(panel2);
             accountsPanel.Location = new Point(23, 79);
             accountsPanel.Name = "accountsPanel";
             accountsPanel.Size = new Size(1417, 896);
             accountsPanel.TabIndex = 4;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(60, 60, 60);
+            panel2.Controls.Add(layeredComboBox2);
+            panel2.Controls.Add(label6);
+            panel2.Controls.Add(layeredComboBox1);
+            panel2.Controls.Add(label5);
+            panel2.Controls.Add(line4);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(listBox);
+            panel2.Controls.Add(label8);
+            panel2.Location = new Point(3, 378);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(450, 253);
+            panel2.TabIndex = 4;
+            // 
+            // layeredComboBox1
+            // 
+            layeredComboBox1.Location = new Point(13, 78);
+            layeredComboBox1.Name = "layeredComboBox1";
+            layeredComboBox1.Size = new Size(418, 174);
+            layeredComboBox1.TabIndex = 7;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(13, 175);
+            label5.Name = "label5";
+            label5.Size = new Size(83, 20);
+            label5.TabIndex = 5;
+            label5.Text = "To Account";
+            // 
+            // line4
+            // 
+            line4.Location = new Point(3, 42);
+            line4.Name = "line4";
+            line4.Size = new Size(447, 10);
+            line4.TabIndex = 4;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(13, 55);
+            label7.Name = "label7";
+            label7.Size = new Size(101, 20);
+            label7.TabIndex = 1;
+            label7.Text = "From Account";
             // 
             // listBox
             // 
@@ -111,10 +172,21 @@
             listBox.ForeColor = Color.White;
             listBox.FormattingEnabled = true;
             listBox.ItemHeight = 15;
-            listBox.Location = new Point(3, 378);
+            listBox.Location = new Point(13, 79);
             listBox.Name = "listBox";
-            listBox.Size = new Size(120, 90);
+            listBox.Size = new Size(418, 120);
             listBox.TabIndex = 3;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(13, 14);
+            label8.Name = "label8";
+            label8.Size = new Size(202, 25);
+            label8.TabIndex = 0;
+            label8.Text = "Make One Time Transfer";
             // 
             // panel1
             // 
@@ -204,6 +276,24 @@
             label2.TabIndex = 0;
             label2.Text = "Accounts Overview";
             // 
+            // layeredComboBox2
+            // 
+            layeredComboBox2.Location = new Point(13, 180);
+            layeredComboBox2.Name = "layeredComboBox2";
+            layeredComboBox2.Size = new Size(418, 174);
+            layeredComboBox2.TabIndex = 9;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(13, 157);
+            label6.Name = "label6";
+            label6.Size = new Size(83, 20);
+            label6.TabIndex = 8;
+            label6.Text = "To Account";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -217,6 +307,8 @@
             Text = "Form1";
             Load += MainForm_Load;
             accountsPanel.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -240,5 +332,13 @@
         private PieChart pieChart1;
         private Label pieChartTotalLabel;
         private ListBox listBox;
+        private Panel panel2;
+        private Line line4;
+        private Label label7;
+        private Label label8;
+        private Label label5;
+        private LayeredComboBox layeredComboBox1;
+        private LayeredComboBox layeredComboBox2;
+        private Label label6;
     }
 }
