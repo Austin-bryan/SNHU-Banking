@@ -84,13 +84,17 @@ public partial class MainForm : Form
 
         if (decimal.TryParse(transferTB.Text, out decimal transferAmount))
         {
-            BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);
-        
-            
+            BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);      
+         
             BankAccount toAccount = BankAccount.GetBankAccount(toAccountBox.Text);
 
-            // Get destination balance
             // Change balances
+            if (fromAccount.TryWithdraw(transferAmount))
+            {
+                toAccount.Deposit(transferAmount);
+                //TODO: toAccount.BankAccountControl.UpdateDisplay();
+                //TODO: fromAccount.BankAccountControl.UpdateDisplay();
+            }
 
         }
         else

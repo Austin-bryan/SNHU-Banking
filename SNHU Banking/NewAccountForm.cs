@@ -59,10 +59,10 @@ public partial class NewAccountForm : Form
 
     public (EAccountCategory category, string label) GetAccountCategory() => accountTypeBox.Text switch
     {
-        "    Checking" => (EAccountCategory.Checking, "Checking Account"),
-        "    Savings"  => (EAccountCategory.Savings,  "Savings Account"),
-        "    CDs"      => (EAccountCategory.CDs,      "Certificate of Deposit"),
-        _              => (EAccountCategory.Checking, "Default"),
+        "Checking" => (EAccountCategory.Checking, "Checking Account"),
+        "Savings"  => (EAccountCategory.Savings,  "Savings Account"),
+        "CDs"      => (EAccountCategory.CDs,      "Certificate of Deposit"),
+        _ => (EAccountCategory.Checking, "Default"),
     };
 
     private void nameTextBox_KeyPress(object sender, KeyPressEventArgs e)
