@@ -22,4 +22,21 @@ public class BankAccount(string name, decimal balance, AccountCategoryControl ac
         accountNames.Add(name, bankAccount);
         return bankAccount;
     }
+
+    public void Withdraw(decimal amount)
+    {
+        if (amount > Balance)
+        {
+            MessageBox.Show("Insufficient Funds", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+        amount -= Balance;
+
+    }
+
+    public void Deposit(decimal amount)
+    {
+        // if (ChildSupportDue == true) {Close();}
+        amount += Balance;
+    }
 }
