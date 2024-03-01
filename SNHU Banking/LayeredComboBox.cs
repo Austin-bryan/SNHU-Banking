@@ -4,7 +4,7 @@ namespace SNHU_Banking;
 
 public partial class LayeredComboBox : UserControl
 {
-    public override string Text => mainButton.Text;
+    public override string Text => mainButton.Text.Replace(padding, "");
     public string DefaultItem
     {
         get => _defaultItem;

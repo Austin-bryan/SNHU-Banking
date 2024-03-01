@@ -1,4 +1,6 @@
-﻿namespace SNHU_Banking;
+﻿using System.Text.RegularExpressions;
+
+namespace SNHU_Banking;
 
 public static class ThemePalette
 {
@@ -16,4 +18,23 @@ public static class ThemePalette
         _                         => (Color.Black, Color.White),
     };
     public static string FormatMoney(decimal d) => string.Format("${0:#,##0.00}", d);
+
+    public static string OnMoneyTextbox_Leave(string text, object sender, EventArgs e)
+    {
+
+        if (text.StartsWith("00"))                        // Removes leading zeroes
+            text = text.TrimStart('0');
+        if (text.StartsWith('.'))                         // Adds a leading zero if a decimal is the first char
+            text = "0" + text;
+
+        if (!text.Contains('.'))                          // If there is no decimal, add a .00 at the end
+            text += ".00";
+        else if (text.EndsWith('.'))                      // If the user adds a decimal but not the zeros, add them in
+            text += "00";
+        else if (text.EndsWith(".0"))                     // Make sure it ends with two zeros, not just one
+            text += "0";
+        else if (Regex.IsMatch(text, @"\.\d$"))           // If the user enters .N where N is any digit, add a zero at the end
+            text += "0";
+        return text;
+    }
 }

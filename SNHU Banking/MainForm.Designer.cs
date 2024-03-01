@@ -35,7 +35,7 @@
             accountCategoryControl3 = new AccountCategoryControl();
             transferPanel = new Panel();
             submitTransferPanel = new Panel();
-            button1 = new Button();
+            submitTransferButton = new Button();
             transferTB = new TextBox();
             amountLabel = new Label();
             errorLabel = new Label();
@@ -126,12 +126,12 @@
             transferPanel.Controls.Add(label8);
             transferPanel.Location = new Point(3, 366);
             transferPanel.Name = "transferPanel";
-            transferPanel.Size = new Size(450, 229);
+            transferPanel.Size = new Size(450, 349);
             transferPanel.TabIndex = 4;
             // 
             // submitTransferPanel
             // 
-            submitTransferPanel.Controls.Add(button1);
+            submitTransferPanel.Controls.Add(submitTransferButton);
             submitTransferPanel.Controls.Add(transferTB);
             submitTransferPanel.Controls.Add(amountLabel);
             submitTransferPanel.Location = new Point(13, 224);
@@ -140,18 +140,19 @@
             submitTransferPanel.TabIndex = 12;
             submitTransferPanel.Visible = false;
             // 
-            // button1
+            // submitTransferButton
             // 
-            button1.BackColor = Color.FromArgb(30, 140, 45);
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(0, 65);
-            button1.Name = "button1";
-            button1.Size = new Size(204, 40);
-            button1.TabIndex = 15;
-            button1.Text = "Submit Transfer";
-            button1.UseVisualStyleBackColor = false;
+            submitTransferButton.BackColor = Color.FromArgb(30, 140, 45);
+            submitTransferButton.FlatAppearance.BorderSize = 0;
+            submitTransferButton.FlatStyle = FlatStyle.Flat;
+            submitTransferButton.ForeColor = Color.White;
+            submitTransferButton.Location = new Point(0, 65);
+            submitTransferButton.Name = "submitTransferButton";
+            submitTransferButton.Size = new Size(204, 40);
+            submitTransferButton.TabIndex = 15;
+            submitTransferButton.Text = "Submit Transfer";
+            submitTransferButton.UseVisualStyleBackColor = false;
+            submitTransferButton.Click += button1_Click;
             // 
             // transferTB
             // 
@@ -164,6 +165,8 @@
             transferTB.Name = "transferTB";
             transferTB.Size = new Size(414, 27);
             transferTB.TabIndex = 14;
+            transferTB.KeyDown += transferTB_KeyDown;
+            transferTB.Leave += transferTB_Leave;
             // 
             // amountLabel
             // 
@@ -363,7 +366,7 @@
         private AccountCategoryControl accountCategoryControl3;
         private Label errorLabel;
         private Panel submitTransferPanel;
-        private Button button1;
+        private Button submitTransferButton;
         private TextBox transferTB;
         private Label amountLabel;
     }
