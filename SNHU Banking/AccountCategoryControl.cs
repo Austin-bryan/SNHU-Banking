@@ -6,7 +6,8 @@ public partial class AccountCategoryControl : UserControl
 {
     public decimal Total { get; private set; }
     public EAccountCategory Category { get; set; }
-    public List<BankAccountControl> BankAccounts { get; private set; } = new();
+    public List<BankAccountControl> BankAccounts { get; private set; } = [];
+
     public MainForm MainForm
     {
         get => mainForm;
@@ -53,10 +54,9 @@ public partial class AccountCategoryControl : UserControl
         
         accountsFlowPanel.Controls.Add(bac);
         accountsFlowPanel.Height += shiftAmount;
-        totalPanel.Location = new(totalPanel.Location.X, totalPanel.Location.Y + shiftAmount);
+        totalPanel.Location       = new(totalPanel.Location.X, totalPanel.Location.Y + shiftAmount);
         
         Height += shiftAmount;
-
         UpdateTotals();
     }
     private void UpdateTotals()
@@ -77,7 +77,10 @@ public partial class AccountCategoryControl : UserControl
     }
     private void newAccountBtn_Click(object sender, EventArgs e)
     {
-        NewAccountForm nac = new(this);
+        NewAccountForm nac = new(this)
+        {
+            Owner = (MainForm)Parent.Parent
+        };
         nac.Show();
         nac.Select(Category);
     }

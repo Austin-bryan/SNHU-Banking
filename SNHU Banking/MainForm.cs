@@ -2,11 +2,13 @@ namespace SNHU_Banking;
 
 public partial class MainForm : Form
 {
+    private readonly int transferPanelStartHeight;
+
     public MainForm()
     {
         InitializeComponent();
         WindowState = FormWindowState.Maximized;
-        BackColor = ThemePalette.FormBackColor;
+        BackColor   = ThemePalette.FormBackColor;
         DarkStylizer.UseDarkMode(Handle, true);
 
         accountsPanel.Controls
@@ -16,29 +18,17 @@ public partial class MainForm : Form
             {
                 acc.MainForm = this;
                 acc.OnBalanceChange += Account_OnBalanceChange;
-                pieChart1.AddAccountCategoryControl(acc);
+                pieChart.AddAccountCategoryControl(acc);
             });
 
-        //fromAccountBox.AddCategory("Checking", EAccountCategory.Checking);
-        //fromAccountBox.AddCategory("Savings", EAccountCategory.Savings);
-        //fromAccountBox.AddCategory("CDs", EAccountCategory.CDs);
+        fromAccountBox.OnSelectionChange += FromAccountBox_OnSelectionChange;
+        toAccountBox.OnSelectionChange   += ToAccountBox_OnSelectionChange;
+        transferPanelStartHeight          = transferPanel.Height;
     }
-    private void AddCategory(ToolStripDropDownMenu menu, string category, string[] entries)
-    {
-        // Create the category item (bold)
-        ToolStripMenuItem categoryItem = new ToolStripMenuItem(category);
-        categoryItem.Font = new Font(categoryItem.Font, FontStyle.Bold);
-        menu.Items.Add(categoryItem);
 
-        // Add entries under the category
-        foreach (string entry in entries)
-        {
-            // Create the entry item (indented and unbold)
-            ToolStripMenuItem entryItem = new ToolStripMenuItem(entry);
-            entryItem.Padding = new Padding(20, 0, 0, 0); // Add indentation
-            categoryItem.DropDownItems.Add(entryItem);
-        }
-    }
+    private void ToAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)      => SetLayeredListBoxColor(toAccountBox, categoryIndex.Value);
+    private void FromAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)    => SetLayeredListBoxColor(fromAccountBox, categoryIndex.Value);
+    private static void SetLayeredListBoxColor(LayeredComboBox lcb, int categoryIndex) => lcb.SetColor(ThemePalette.GetAccountTheme((EAccountCategory)(categoryIndex)));
 
     private void Account_OnBalanceChange(decimal balance, decimal ytd)
     {
@@ -52,6 +42,27 @@ public partial class MainForm : Form
 
         pieChartTotalLabel.Text = ThemePalette.FormatMoney(total);
     }
-
+    public void AddAccount(BankAccount account)
+    {
+        if (account.Category != EAccountCategory.CDs)
+            fromAccountBox.AddItem(account.Name, (int)account.Category);
+        toAccountBox.AddItem(account.Name, (int)account.Category);
+    }
     public void AddBalancePreview(BalancePreview balancePreview) => balancePreviewPanel.Controls.Add(balancePreview);
+    
+    public void ShowTransferError()  => ChangeTransfer(25,  false, false);
+    public void ShowTransferSubmit() => ChangeTransfer(120, false, false);
+    public void ResetTransfer()      => ChangeTransfer(0,   false, false);
+    private void ChangeTransfer(int heightDelta, bool errorVisible, bool submitTransferVisible) => (transferPanel.Height, errorLabel.Visible, submitTransferPanel.Visible) = 
+                                                                                                     (transferPanelStartHeight + heightDelta, errorVisible, submitTransferVisible);
+    private void MainForm_Load(object sender, EventArgs e)
+    {
+        // The user isn't able to transfer from CDs because they are locked up for a time frame, but they are able to transfer to CDs
+        fromAccountBox.AddCategory("Checking");
+        fromAccountBox.AddCategory("Savings");
+
+        toAccountBox.AddCategory("Checking");
+        toAccountBox.AddCategory("Savings");
+        toAccountBox.AddCategory("CDs");
+    }
 }

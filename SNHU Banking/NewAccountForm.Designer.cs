@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            categorySelection = new ComboBox();
             mainLabel = new Label();
             nameLabel = new Label();
             nameTextBox = new TextBox();
@@ -38,30 +37,16 @@
             submitButton = new Button();
             backgroundPanel = new PictureBox();
             sideBackground = new PictureBox();
+            accountTypeBox = new LayeredComboBox();
             ((System.ComponentModel.ISupportInitialize)backgroundPanel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sideBackground).BeginInit();
             SuspendLayout();
-            // 
-            // categorySelection
-            // 
-            categorySelection.BackColor = Color.FromArgb(60, 60, 60);
-            categorySelection.DropDownStyle = ComboBoxStyle.DropDownList;
-            categorySelection.FlatStyle = FlatStyle.Flat;
-            categorySelection.ForeColor = Color.White;
-            categorySelection.FormattingEnabled = true;
-            categorySelection.Items.AddRange(new object[] { "Checkings", "Savings", "Certificate of Deposit" });
-            categorySelection.Location = new Point(126, 61);
-            categorySelection.Name = "categorySelection";
-            categorySelection.Size = new Size(182, 23);
-            categorySelection.TabIndex = 3;
-            categorySelection.SelectedIndexChanged += categorySelection_SelectedIndexChanged;
-            categorySelection.SelectionChangeCommitted += categorySelection_SelectionChangeCommitted;
             // 
             // mainLabel
             // 
             mainLabel.AutoSize = true;
             mainLabel.BackColor = Color.FromArgb(30, 30, 30);
-            mainLabel.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            mainLabel.Font = new Font("Segoe UI", 14F);
             mainLabel.ForeColor = SystemColors.ButtonFace;
             mainLabel.Location = new Point(12, 9);
             mainLabel.Name = "mainLabel";
@@ -73,7 +58,7 @@
             // 
             nameLabel.AutoSize = true;
             nameLabel.BackColor = Color.FromArgb(40, 40, 100);
-            nameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            nameLabel.Font = new Font("Segoe UI", 9F);
             nameLabel.ForeColor = SystemColors.ButtonFace;
             nameLabel.Location = new Point(68, 92);
             nameLabel.Name = "nameLabel";
@@ -111,7 +96,7 @@
             // 
             startBalanceLabel.AutoSize = true;
             startBalanceLabel.BackColor = Color.FromArgb(40, 40, 100);
-            startBalanceLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            startBalanceLabel.Font = new Font("Segoe UI", 9F);
             startBalanceLabel.ForeColor = SystemColors.ButtonFace;
             startBalanceLabel.Location = new Point(15, 124);
             startBalanceLabel.Name = "startBalanceLabel";
@@ -123,9 +108,9 @@
             // 
             accountLabel.AutoSize = true;
             accountLabel.BackColor = Color.FromArgb(40, 40, 100);
-            accountLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            accountLabel.Font = new Font("Segoe UI", 9F);
             accountLabel.ForeColor = SystemColors.ButtonFace;
-            accountLabel.Location = new Point(36, 64);
+            accountLabel.Location = new Point(36, 60);
             accountLabel.Name = "accountLabel";
             accountLabel.Size = new Size(82, 15);
             accountLabel.TabIndex = 9;
@@ -164,12 +149,21 @@
             sideBackground.TabIndex = 12;
             sideBackground.TabStop = false;
             // 
+            // accountTypeBox
+            // 
+            accountTypeBox.DefaultItem = "      Pick an Item";
+            accountTypeBox.Location = new Point(126, 50);
+            accountTypeBox.Name = "accountTypeBox";
+            accountTypeBox.Size = new Size(182, 34);
+            accountTypeBox.TabIndex = 13;
+            // 
             // NewAccountForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(40, 40, 40);
             ClientSize = new Size(464, 333);
+            Controls.Add(accountTypeBox);
             Controls.Add(submitButton);
             Controls.Add(accountLabel);
             Controls.Add(startBalanceLabel);
@@ -177,7 +171,6 @@
             Controls.Add(nameTextBox);
             Controls.Add(nameLabel);
             Controls.Add(mainLabel);
-            Controls.Add(categorySelection);
             Controls.Add(backgroundPanel);
             Controls.Add(sideBackground);
             Name = "NewAccountForm";
@@ -188,8 +181,6 @@
         }
 
         #endregion
-
-        private ComboBox categorySelection;
         private Label mainLabel;
         private Label nameLabel;
         private TextBox nameTextBox;
@@ -199,5 +190,6 @@
         private Button submitButton;
         private PictureBox backgroundPanel;
         private PictureBox sideBackground;
+        private LayeredComboBox accountTypeBox;
     }
 }

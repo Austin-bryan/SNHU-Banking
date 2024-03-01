@@ -3,7 +3,7 @@ namespace SNHU_Banking;
 
 public partial class PieChart : UserControl
 {
-    private readonly List<AccountCategoryControl> accountCategoryControls = new();
+    private readonly List<AccountCategoryControl> accountCategoryControls = [];
 
     public PieChart() => InitializeComponent();
     public void AddAccountCategoryControl(AccountCategoryControl acc)
@@ -25,7 +25,6 @@ public partial class PieChart : UserControl
         // Pair the values and colors for each account category
         List<(decimal Value, Color Color)> valueColorPairs = accountCategoryControls
                 .Where(acc => acc.BankAccounts.Count > 0)
-                .ToList()
                 .Select(acc => (acc.Total, GetAccountTheme(acc.Category).BackColor))
                 .ToList();
 

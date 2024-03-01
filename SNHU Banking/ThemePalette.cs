@@ -4,9 +4,9 @@ public static class ThemePalette
 {
     public static readonly Color FormBackColor    = Color.FromArgb(255, 40, 40, 40);
     public static readonly Color ControlBackColor = Color.FromArgb(255, 60, 60, 60);
-    public static readonly Color CheckingTheme         = Color.FromArgb(255, 75, 110, 255);
-    public static readonly Color SavingsTheme          = Color.FromArgb(255, 40, 240, 40);
-    public static readonly Color CDsTheme               = Color.FromArgb(255, 220, 40, 50);
+    public static readonly Color CheckingTheme    = Color.FromArgb(255, 75, 110, 255);
+    public static readonly Color SavingsTheme     = Color.FromArgb(255, 40, 240, 40);
+    public static readonly Color CDsTheme         = Color.FromArgb(255, 220, 40, 50);
 
     public static (Color ForeColor, Color BackColor) GetAccountTheme(EAccountCategory category) => category switch
     {

@@ -5,6 +5,8 @@ namespace SNHU_Banking;
 public partial class NewAccountForm : Form
 {
     private AccountCategoryControl accountCategoryControl;
+    private bool namedHasChanged;
+
     private string BalanceText
     {
         get => balanceTextBox.Text;
@@ -19,70 +21,56 @@ public partial class NewAccountForm : Form
         InitializeComponent();
         DarkStylizer.UseDarkMode(Handle, true);
 
-        coloredControls = new()
-        {
-            submitButton,
-            sideBackground,
-            accountLabel,
-            nameLabel,
-            startBalanceLabel
-        };
-
+        coloredControls = [submitButton,sideBackground, accountLabel, nameLabel,startBalanceLabel];
         UpdateAppearence();
+
+        accountTypeBox.AddCategory("Banking");
+        accountTypeBox.AddCategory("Investments");
+
+        accountTypeBox.AddItem("Checking", 0);
+        accountTypeBox.AddItem("Savings", 0);
+        accountTypeBox.AddItem("CDs", 1);
+
+        accountTypeBox.OnSelectionChange += accountTypeBox_OnSelectionChange;
     }
+
     public void UpdateAppearence()
     {
         var (fore, back) = ThemePalette.GetAccountTheme(GetAccountCategory().category);
 
         coloredControls.ForEach(c => { c.ForeColor = fore; c.BackColor = back; });
         mainLabel.Text = "Create New " + GetAccountCategory().label;
-        ;
 
         if (nameTextBox.Text == "")
         {
             submitButton.BackColor = Color.FromArgb(60, 60, 60);
             submitButton.ForeColor = Color.Black;
-            submitButton.Enabled = false;
+            submitButton.Enabled   = false;
         }
         else submitButton.Enabled = true;
     }
     private void UpdateNameText()
     {
-        if (nameTextBox.Text != "")
+        if (nameTextBox.Text != "" && namedHasChanged)
             return;
         nameTextBox.Text = GetAccountCategory().label + " #" + (accountCategoryControl.BankAccounts.Count + 1).ToString();
     }
-    public void Select(EAccountCategory accountCategory) => categorySelection.SelectedIndex = (int)accountCategory;
-    public (EAccountCategory category, string label) GetAccountCategory()
+    public void Select(EAccountCategory accountCategory) => accountTypeBox.SelectItem((int)accountCategory);
+
+    public (EAccountCategory category, string label) GetAccountCategory() => accountTypeBox.Text switch
     {
-        return categorySelection.Text switch
-        {
-            "Checking" => (EAccountCategory.Checking, "Checking Account"),
-            "Savings" => (EAccountCategory.Savings, "Savings Account"),
-            "Certificate of Deposit" => (EAccountCategory.CDs, "Certificate of Deposit"),
-            _ => (EAccountCategory.Checking, "Default"),
-        };
-    }
-
-    private void categorySelection_SelectionChangeCommitted(object sender, EventArgs e)
-    {
-        UpdateAppearence();
-        UpdateNameText();
-
-    }
-
-    private void categorySelection_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        UpdateAppearence();
-        UpdateNameText();
-
-    }
+        "    Checking" => (EAccountCategory.Checking, "Checking Account"),
+        "    Savings"  => (EAccountCategory.Savings,  "Savings Account"),
+        "    CDs"      => (EAccountCategory.CDs,      "Certificate of Deposit"),
+        _              => (EAccountCategory.Checking, "Default"),
+    };
 
     private void nameTextBox_KeyPress(object sender, KeyPressEventArgs e)
     {
         if (e.KeyChar == ' ' && nameTextBox.Text != "")                     // Allow a space if the text box isnt empty
             return;
-        //if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))        // Block all non alpha chars
+        namedHasChanged = true;
+        //if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))      // Block all non alpha chars
         //    e.Handled = true;
     }
 
@@ -103,6 +91,12 @@ public partial class NewAccountForm : Form
             e.Handled = true;
     }
 
+    private void accountTypeBox_OnSelectionChange(int newIndex, int? newCategoryIndex)
+    {
+        UpdateAppearence();
+        UpdateNameText();
+    }
+
     private void balanceTextBox_Leave(object sender, EventArgs e)
     {
         if (BalanceText.StartsWith("00"))                        // Removes leading zeroes
@@ -110,9 +104,9 @@ public partial class NewAccountForm : Form
         if (BalanceText.StartsWith('.'))                         // Adds a leading zero if a decimal is the first char
             BalanceText = "0" + BalanceText;
 
-        if (!BalanceText.Contains("."))                          // If there is no decimal, add a .00 at the end
+        if (!BalanceText.Contains('.'))                          // If there is no decimal, add a .00 at the end
             BalanceText += ".00";
-        else if (BalanceText.EndsWith("."))                      // If the user adds a decimal but not the zeros, add them in
+        else if (BalanceText.EndsWith('.'))                      // If the user adds a decimal but not the zeros, add them in
             BalanceText += "00";
         else if (BalanceText.EndsWith(".0"))                     // Make sure it ends with two zeros, not just one
             BalanceText += "0";
@@ -126,6 +120,9 @@ public partial class NewAccountForm : Form
     {
         BankAccount account = new(nameTextBox.Text, decimal.Parse(BalanceText), accountCategoryControl);
         accountCategoryControl.AddAccount(account);
+        
+        (Owner as MainForm).AddAccount(account);
+
         Close();
     }
 
