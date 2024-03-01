@@ -4,14 +4,14 @@ namespace SNHU_Banking;
 
 public partial class LayeredComboBox : UserControl
 {
-    public override string Text => mainButton.Text;
+    public override string Text => mainButton.Text.TrimStart(' ');
     public string DefaultItem
     {
         get => _defaultItem;
         set
         {
-            value = value.Replace(padding, "");
-            _defaultItem = padding + value;
+            value = value.Replace(Padding, "");
+            _defaultItem = Padding + value;
         }
     }
     public bool IsDefaultOption => Text == DefaultItem;
@@ -19,9 +19,9 @@ public partial class LayeredComboBox : UserControl
     public delegate void SelectionChangeHandler(int newIndex, int? newCategoryIndex);
     public event SelectionChangeHandler OnSelectionChange;
 
-    private const string padding = "      ";
+    public const string Padding = "      ";
     private readonly Dictionary<int, int> categoryIndexToItemIndex = [];
-    private string _defaultItem = padding + "Pick an Item";
+    private string _defaultItem = Padding + "Pick an Item";
     private int hoveredIndex;
 
     public LayeredComboBox()
@@ -66,7 +66,8 @@ public partial class LayeredComboBox : UserControl
             }
             else categoryInsertIndex = listBox.Items.Count;
 
-            item = new LayeredListBoxItem("    " + text, false, categoryIndex);
+            item = new LayeredListBoxItem(Padding + text, false, categoryIndex);
+            //item = new LayeredListBoxItem("    " + text, false, categoryIndex);
             listBox.Items.Insert(categoryInsertIndex, item);
         }
         else

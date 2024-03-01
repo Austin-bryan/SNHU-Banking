@@ -59,10 +59,10 @@ public partial class NewAccountForm : Form
 
     public (EAccountCategory category, string label) GetAccountCategory() => accountTypeBox.Text switch
     {
-        "    Checking" => (EAccountCategory.Checking, "Checking Account"),
-        "    Savings"  => (EAccountCategory.Savings,  "Savings Account"),
-        "    CDs"      => (EAccountCategory.CDs,      "Certificate of Deposit"),
-        _              => (EAccountCategory.Checking, "Default"),
+        "Checking" => (EAccountCategory.Checking, "Checking Account"),
+        "Savings"  => (EAccountCategory.Savings,  "Savings Account"),
+        "CDs"      => (EAccountCategory.CDs,      "Certificate of Deposit"),
+        _ => (EAccountCategory.Checking, "Default"),
     };
 
     private void nameTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -94,23 +94,7 @@ public partial class NewAccountForm : Form
         UpdateNameText();
     }
 
-    private void balanceTextBox_Leave(object sender, EventArgs e)
-    {
-        if (BalanceText.StartsWith("00"))                        // Removes leading zeroes
-            BalanceText = BalanceText.TrimStart('0');
-        if (BalanceText.StartsWith('.'))                         // Adds a leading zero if a decimal is the first char
-            BalanceText = "0" + BalanceText;
-
-        if (!BalanceText.Contains('.'))                          // If there is no decimal, add a .00 at the end
-            BalanceText += ".00";
-        else if (BalanceText.EndsWith('.'))                      // If the user adds a decimal but not the zeros, add them in
-            BalanceText += "00";
-        else if (BalanceText.EndsWith(".0"))                     // Make sure it ends with two zeros, not just one
-            BalanceText += "0";
-        else if (Regex.IsMatch(BalanceText, @"\.\d$"))           // If the user enters .N where N is any digit, add a zero at the end
-            BalanceText += "0";
-    }
-
+    private void balanceTextBox_Leave(object sender, EventArgs e) => BalanceText = ThemePalette.OnMoneyTextbox_Leave(BalanceText);
     private void nameTextBox_TextChanged(object sender, EventArgs e) => UpdateAppearence();
 
     private void submitButton_Click(object sender, EventArgs e)

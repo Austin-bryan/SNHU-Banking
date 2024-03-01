@@ -12,8 +12,16 @@ public partial class BankAccountControl : UserControl
 
         bankAccount        = account;
         nameLabel.Text     = account.Name;
-        balanceLabel.Text  = string.Format("${0:#,##0.00}", account.Balance);
         ytdLabel.Text      = "$0";
         interestLabel.Text = "0.25%";
+
+        bankAccount.BankAccountControl = this;
+        UpdateBalance();
     }
+
+    public void UpdateBalance()
+    {
+        balanceLabel.Text = string.Format("${0:#,##0.00}", bankAccount.Balance);
+    }
+    // TODO: update display
 }

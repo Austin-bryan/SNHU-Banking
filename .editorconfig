@@ -11,3 +11,6 @@ dotnet_diagnostic.CS8629.severity = none
 
 # IDE0011: Add braces
 dotnet_diagnostic.IDE0011.severity = none
+
+# SYSLIB1045: Convert to 'GeneratedRegexAttribute'.
+dotnet_diagnostic.SYSLIB1045.severity = none
