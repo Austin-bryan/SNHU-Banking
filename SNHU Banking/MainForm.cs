@@ -26,6 +26,11 @@ public partial class MainForm : Form
         transferPanelStartHeight = transferPanel.Height;
     }
 
+    public void SwitchPages(bool showAccounView)
+    {
+        accountsPanel.Visible = pieChartPanel.Visible = transferPanel.Visible = bankAccountsLabel.Visible = !showAccounView;
+    }
+
     public void AddAccount(BankAccount account)
     {
         if (account.Category != EAccountCategory.CDs)

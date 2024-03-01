@@ -59,7 +59,7 @@ partial class BankAccountControl
         // 
         interestLabel.AutoSize = true;
         interestLabel.BackColor = Color.FromArgb(60, 60, 60);
-        interestLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+        interestLabel.Font = new Font("Segoe UI", 9F);
         interestLabel.ForeColor = SystemColors.ButtonFace;
         interestLabel.Location = new Point(1051, 0);
         interestLabel.Name = "interestLabel";
@@ -71,7 +71,7 @@ partial class BankAccountControl
         // 
         ytdLabel.AutoSize = true;
         ytdLabel.BackColor = Color.FromArgb(60, 60, 60);
-        ytdLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+        ytdLabel.Font = new Font("Segoe UI", 9F);
         ytdLabel.ForeColor = SystemColors.ButtonFace;
         ytdLabel.Location = new Point(756, 0);
         ytdLabel.Name = "ytdLabel";
@@ -84,7 +84,7 @@ partial class BankAccountControl
         // 
         balanceLabel.AutoSize = true;
         balanceLabel.BackColor = Color.FromArgb(60, 60, 60);
-        balanceLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+        balanceLabel.Font = new Font("Segoe UI", 9F);
         balanceLabel.ForeColor = SystemColors.ButtonFace;
         balanceLabel.Location = new Point(475, 0);
         balanceLabel.Name = "balanceLabel";
@@ -97,14 +97,16 @@ partial class BankAccountControl
         // 
         nameLabel.AutoSize = true;
         nameLabel.BackColor = Color.FromArgb(60, 60, 60);
-        nameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-        nameLabel.ForeColor = SystemColors.ButtonFace;
+        nameLabel.Cursor = Cursors.Hand;
+        nameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+        nameLabel.ForeColor = SystemColors.MenuHighlight;
         nameLabel.Location = new Point(3, 0);
         nameLabel.Name = "nameLabel";
-        nameLabel.Size = new Size(88, 14);
+        nameLabel.Size = new Size(91, 14);
         nameLabel.TabIndex = 2;
         nameLabel.Text = "Online Banking";
         nameLabel.TextAlign = ContentAlignment.TopCenter;
+        nameLabel.Click += nameLabel_Click;
         // 
         // BankAccountControl
         // 

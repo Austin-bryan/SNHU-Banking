@@ -2,8 +2,9 @@
 
 public partial class BankAccountControl : UserControl
 {
-    public decimal Balance => bankAccount.Balance;
     public decimal YTD     => bankAccount.YTD;
+    public decimal Balance => bankAccount.Balance;
+
     private readonly BankAccount bankAccount;
 
     public BankAccountControl(BankAccount account)
@@ -19,9 +20,10 @@ public partial class BankAccountControl : UserControl
         UpdateBalance();
     }
 
-    public void UpdateBalance()
+    public void UpdateBalance() => balanceLabel.Text = string.Format("${0:#,##0.00}", bankAccount.Balance);
+
+    private void nameLabel_Click(object sender, EventArgs e)
     {
-        balanceLabel.Text = string.Format("${0:#,##0.00}", bankAccount.Balance);
+        (ParentForm as MainForm).SwitchPages(true);
     }
-    // TODO: update display
 }

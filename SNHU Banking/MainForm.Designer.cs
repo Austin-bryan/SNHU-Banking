@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            bankAccountsLabel = new Label();
             accountsPanel = new FlowLayoutPanel();
             accountCategoryControl1 = new AccountCategoryControl();
             accountCategoryControl2 = new AccountCategoryControl();
@@ -44,7 +44,7 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            panel1 = new Panel();
+            pieChartPanel = new Panel();
             pieChart = new PieChart();
             pieChartTotalLabel = new Label();
             balancePreviewPanel = new FlowLayoutPanel();
@@ -54,19 +54,19 @@
             accountsPanel.SuspendLayout();
             transferPanel.SuspendLayout();
             submitTransferPanel.SuspendLayout();
-            panel1.SuspendLayout();
+            pieChartPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // bankAccountsLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 20F);
-            label1.ForeColor = SystemColors.ButtonFace;
-            label1.Location = new Point(26, 2);
-            label1.Name = "label1";
-            label1.Size = new Size(188, 37);
-            label1.TabIndex = 3;
-            label1.Text = "Bank Accounts";
+            bankAccountsLabel.AutoSize = true;
+            bankAccountsLabel.Font = new Font("Segoe UI", 20F);
+            bankAccountsLabel.ForeColor = SystemColors.ButtonFace;
+            bankAccountsLabel.Location = new Point(26, 2);
+            bankAccountsLabel.Name = "bankAccountsLabel";
+            bankAccountsLabel.Size = new Size(188, 37);
+            bankAccountsLabel.TabIndex = 3;
+            bankAccountsLabel.Text = "Bank Accounts";
             // 
             // accountsPanel
             // 
@@ -75,7 +75,6 @@
             accountsPanel.Controls.Add(accountCategoryControl1);
             accountsPanel.Controls.Add(accountCategoryControl2);
             accountsPanel.Controls.Add(accountCategoryControl3);
-            accountsPanel.Controls.Add(transferPanel);
             accountsPanel.Location = new Point(23, 39);
             accountsPanel.Name = "accountsPanel";
             accountsPanel.Size = new Size(1417, 896);
@@ -124,7 +123,7 @@
             transferPanel.Controls.Add(label6);
             transferPanel.Controls.Add(label7);
             transferPanel.Controls.Add(label8);
-            transferPanel.Location = new Point(3, 366);
+            transferPanel.Location = new Point(1446, 579);
             transferPanel.Name = "transferPanel";
             transferPanel.Size = new Size(450, 349);
             transferPanel.TabIndex = 4;
@@ -242,20 +241,20 @@
             label8.TabIndex = 0;
             label8.Text = "Make One Time Transfer";
             // 
-            // panel1
+            // pieChartPanel
             // 
-            panel1.BackColor = Color.FromArgb(60, 60, 60);
-            panel1.Controls.Add(pieChart);
-            panel1.Controls.Add(pieChartTotalLabel);
-            panel1.Controls.Add(balancePreviewPanel);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
-            panel1.Location = new Point(1446, 39);
-            panel1.Margin = new Padding(3, 3, 3, 10);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(450, 527);
-            panel1.TabIndex = 3;
+            pieChartPanel.BackColor = Color.FromArgb(60, 60, 60);
+            pieChartPanel.Controls.Add(pieChart);
+            pieChartPanel.Controls.Add(pieChartTotalLabel);
+            pieChartPanel.Controls.Add(balancePreviewPanel);
+            pieChartPanel.Controls.Add(label4);
+            pieChartPanel.Controls.Add(label3);
+            pieChartPanel.Controls.Add(label2);
+            pieChartPanel.Location = new Point(1446, 39);
+            pieChartPanel.Margin = new Padding(3, 3, 3, 10);
+            pieChartPanel.Name = "pieChartPanel";
+            pieChartPanel.Size = new Size(450, 527);
+            pieChartPanel.TabIndex = 3;
             // 
             // pieChart
             // 
@@ -321,9 +320,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(40, 40, 40);
             ClientSize = new Size(1643, 1061);
-            Controls.Add(panel1);
+            Controls.Add(pieChartPanel);
             Controls.Add(accountsPanel);
-            Controls.Add(label1);
+            Controls.Add(bankAccountsLabel);
+            Controls.Add(transferPanel);
             Name = "MainForm";
             Text = "Form1";
             Load += MainForm_Load;
@@ -332,8 +332,8 @@
             transferPanel.PerformLayout();
             submitTransferPanel.ResumeLayout(false);
             submitTransferPanel.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            pieChartPanel.ResumeLayout(false);
+            pieChartPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -343,9 +343,9 @@
         private AccountCategoryControl savingsControl;
         private AccountCategoryControl cdControl;
         private AccountCategoryControl checkingControl;
-        private Label label1;
+        private Label bankAccountsLabel;
         private FlowLayoutPanel accountsPanel;
-        private Panel panel1;
+        private Panel pieChartPanel;
         private Label label4;
         private Label label3;
         private Label label2;

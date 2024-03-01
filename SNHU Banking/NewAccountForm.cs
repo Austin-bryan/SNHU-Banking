@@ -122,8 +122,7 @@ public partial class NewAccountForm : Form
             4 => 2,
             _ => throw new ArgumentException("Invalid index")
         };
-
-        MessageBox.Show((newCategoryIndex, (EAccountCategory)newCategoryIndex.Value).ToString());
+        
         accountCategoryControl = (Owner as MainForm)
             .GetAccountCategoryControls()
             .Where(c => c.Category == (EAccountCategory)adjustedIndex)
