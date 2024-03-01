@@ -126,7 +126,7 @@
             transferPanel.Controls.Add(label8);
             transferPanel.Location = new Point(3, 366);
             transferPanel.Name = "transferPanel";
-            transferPanel.Size = new Size(450, 229);
+            transferPanel.Size = new Size(450, 405);
             transferPanel.TabIndex = 4;
             // 
             // submitTransferPanel

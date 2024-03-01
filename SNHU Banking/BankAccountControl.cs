@@ -15,6 +15,5 @@ public partial class BankAccountControl : UserControl
         balanceLabel.Text  = string.Format("${0:#,##0.00}", account.Balance);
         ytdLabel.Text      = "$0";
         interestLabel.Text = "0.25%";
-        
     }
 }

@@ -26,11 +26,11 @@ public partial class MainForm : Form
         transferPanelStartHeight          = transferPanel.Height;
     }
 
-    private void ToAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)      => SetLayeredListBoxColor(toAccountBox, categoryIndex.Value);
-    private void FromAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)    => SetLayeredListBoxColor(fromAccountBox, categoryIndex.Value);
-    private void SetLayeredListBoxColor(LayeredComboBox lcb, int categoryIndex)
+    private void ToAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)   => OnAccountSelected(toAccountBox, categoryIndex.Value);
+    private void FromAccountBox_OnSelectionChange(int newIndex, int? categoryIndex) => OnAccountSelected(fromAccountBox, categoryIndex.Value);
+    private void OnAccountSelected(LayeredComboBox lcb, int categoryIndex)
     {
-        lcb.SetColor(ThemePalette.GetAccountTheme((EAccountCategory)(categoryIndex)));
+        lcb.SetColor(ThemePalette.GetAccountTheme((EAccountCategory)categoryIndex));
 
         if (toAccountBox.IsDefaultOption || fromAccountBox.IsDefaultOption)
             return;
@@ -58,8 +58,8 @@ public partial class MainForm : Form
         toAccountBox.AddItem(account.Name, (int)account.Category);
     }
     public void AddBalancePreview(BalancePreview balancePreview) => balancePreviewPanel.Controls.Add(balancePreview);
-    
-    public void ShowTransferError()  => ChangeTransfer(25,  true, false);
+
+    public void ShowTransferError()  => ChangeTransfer(25, true, false);
     public void ShowTransferSubmit() => ChangeTransfer(120, false, true);
     public void ResetTransfer()      => ChangeTransfer(0,   false, false);
     private void ChangeTransfer(int heightDelta, bool errorVisible, bool submitTransferVisible) => 

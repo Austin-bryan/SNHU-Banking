@@ -70,8 +70,6 @@ public partial class NewAccountForm : Form
         if (e.KeyChar == ' ' && nameTextBox.Text != "")                     // Allow a space if the text box isnt empty
             return;
         namedHasChanged = true;
-        //if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))      // Block all non alpha chars
-        //    e.Handled = true;
     }
 
     private void balanceTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -86,8 +84,7 @@ public partial class NewAccountForm : Form
         // Also allows editing of the textbox if the entire textbox contents are selected
         else if (
             !(balanceTextBox.SelectionStart == 0 && balanceTextBox.SelectionLength == BalanceText.Length) &&
-
-            (e.KeyChar != '\b' && ((TextBox)sender).Text.Contains('.') && ((TextBox)sender).Text.Substring(((TextBox)sender).Text.IndexOf('.')).Length > 2))
+            (e.KeyChar != '\b' && ((TextBox)sender).Text.Contains('.') && ((TextBox)sender).Text[((TextBox)sender).Text.IndexOf('.')..].Length > 2))
             e.Handled = true;
     }
 
@@ -100,7 +97,7 @@ public partial class NewAccountForm : Form
     private void balanceTextBox_Leave(object sender, EventArgs e)
     {
         if (BalanceText.StartsWith("00"))                        // Removes leading zeroes
-            BalanceText = balanceTextBox.Text.TrimStart('0');
+            BalanceText = BalanceText.TrimStart('0');
         if (BalanceText.StartsWith('.'))                         // Adds a leading zero if a decimal is the first char
             BalanceText = "0" + BalanceText;
 
@@ -137,7 +134,7 @@ public partial class NewAccountForm : Form
         if (e.KeyCode == Keys.Enter)
         {
             e.SuppressKeyPress = true;
-            submitButton.Focus();
+            submitButton.PerformClick();
         }
     }
 }

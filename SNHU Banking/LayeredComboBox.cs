@@ -30,7 +30,7 @@ public partial class LayeredComboBox : UserControl
         listBox.DrawItem += listBox_DrawItem;
 
         mainButton.Location = Point.Empty;
-        listBox.DrawMode    = DrawMode.OwnerDrawFixed;
+        listBox.DrawMode = DrawMode.OwnerDrawFixed;
     }
 
     public void AddCategory(string text)
@@ -94,7 +94,7 @@ public partial class LayeredComboBox : UserControl
 
         listBox.SelectedIndex = index;
         mainButton.Text = listBox.Items[index].ToString();
-        OnSelectionChange.Invoke(index, (listBox.Items[index] as LayeredListBoxItem).CategoryIndex);
+        OnSelectionChange?.Invoke(index, (listBox.Items[index] as LayeredListBoxItem).CategoryIndex);
     }
     
     private void mainButton_Paint(object sender, PaintEventArgs e)
@@ -177,6 +177,7 @@ public partial class LayeredComboBox : UserControl
         if (categoryIndexToItemIndex.ContainsValue(hoveredIndex))
             return;
         mainButton.Text = listBox.Items[hoveredIndex].ToString();
+
         OnSelectionChange?.Invoke(hoveredIndex, (listBox.Items[hoveredIndex] as LayeredListBoxItem).CategoryIndex);
     }
     private void LayeredComboBox_Leave(object sender, EventArgs e) => listBox.Visible = false;
