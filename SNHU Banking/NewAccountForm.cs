@@ -118,11 +118,17 @@ public partial class NewAccountForm : Form
 
     private void submitButton_Click(object sender, EventArgs e)
     {
-        BankAccount account = new(nameTextBox.Text, decimal.Parse(BalanceText), accountCategoryControl);
+        BankAccount? account = BankAccount.CreateAccount(nameTextBox.Text, decimal.Parse(BalanceText), accountCategoryControl);
+
+        if (account == null)
+        {
+            MessageBox.Show("An account with that name already exists.\nChoose a different name.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
         accountCategoryControl.AddAccount(account);
         
         (Owner as MainForm).AddAccount(account);
-
         Close();
     }
 

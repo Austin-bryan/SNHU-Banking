@@ -134,7 +134,7 @@
             submitTransferPanel.Controls.Add(button1);
             submitTransferPanel.Controls.Add(transferTB);
             submitTransferPanel.Controls.Add(amountLabel);
-            submitTransferPanel.Location = new Point(15, 224);
+            submitTransferPanel.Location = new Point(13, 224);
             submitTransferPanel.Name = "submitTransferPanel";
             submitTransferPanel.Size = new Size(415, 117);
             submitTransferPanel.TabIndex = 12;
@@ -185,9 +185,9 @@
             errorLabel.ForeColor = Color.White;
             errorLabel.Location = new Point(16, 224);
             errorLabel.Name = "errorLabel";
-            errorLabel.Size = new Size(324, 20);
+            errorLabel.Size = new Size(351, 20);
             errorLabel.TabIndex = 11;
-            errorLabel.Text = "  Cannot transfer betweent the same account";
+            errorLabel.Text = "To Account cannot be the same as From Account";
             errorLabel.Visible = false;
             // 
             // toAccountBox

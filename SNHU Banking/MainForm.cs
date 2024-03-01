@@ -28,7 +28,16 @@ public partial class MainForm : Form
 
     private void ToAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)      => SetLayeredListBoxColor(toAccountBox, categoryIndex.Value);
     private void FromAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)    => SetLayeredListBoxColor(fromAccountBox, categoryIndex.Value);
-    private static void SetLayeredListBoxColor(LayeredComboBox lcb, int categoryIndex) => lcb.SetColor(ThemePalette.GetAccountTheme((EAccountCategory)(categoryIndex)));
+    private void SetLayeredListBoxColor(LayeredComboBox lcb, int categoryIndex)
+    {
+        lcb.SetColor(ThemePalette.GetAccountTheme((EAccountCategory)(categoryIndex)));
+
+        if (toAccountBox.IsDefaultOption || fromAccountBox.IsDefaultOption)
+            return;
+        if (toAccountBox.Text == fromAccountBox.Text)
+             ShowTransferError();
+        else ShowTransferSubmit();
+    }
 
     private void Account_OnBalanceChange(decimal balance, decimal ytd)
     {
@@ -50,11 +59,12 @@ public partial class MainForm : Form
     }
     public void AddBalancePreview(BalancePreview balancePreview) => balancePreviewPanel.Controls.Add(balancePreview);
     
-    public void ShowTransferError()  => ChangeTransfer(25,  false, false);
-    public void ShowTransferSubmit() => ChangeTransfer(120, false, false);
+    public void ShowTransferError()  => ChangeTransfer(25,  true, false);
+    public void ShowTransferSubmit() => ChangeTransfer(120, false, true);
     public void ResetTransfer()      => ChangeTransfer(0,   false, false);
-    private void ChangeTransfer(int heightDelta, bool errorVisible, bool submitTransferVisible) => (transferPanel.Height, errorLabel.Visible, submitTransferPanel.Visible) = 
-                                                                                                     (transferPanelStartHeight + heightDelta, errorVisible, submitTransferVisible);
+    private void ChangeTransfer(int heightDelta, bool errorVisible, bool submitTransferVisible) => 
+        (transferPanel.Height, errorLabel.Visible, submitTransferPanel.Visible) = 
+        (transferPanelStartHeight + heightDelta, errorVisible, submitTransferVisible);
     private void MainForm_Load(object sender, EventArgs e)
     {
         // The user isn't able to transfer from CDs because they are locked up for a time frame, but they are able to transfer to CDs

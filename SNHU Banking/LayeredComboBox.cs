@@ -14,6 +14,8 @@ public partial class LayeredComboBox : UserControl
             _defaultItem = padding + value;
         }
     }
+    public bool IsDefaultOption => Text == DefaultItem;
+
     public delegate void SelectionChangeHandler(int newIndex, int? newCategoryIndex);
     public event SelectionChangeHandler OnSelectionChange;
 
@@ -29,8 +31,6 @@ public partial class LayeredComboBox : UserControl
 
         mainButton.Location = Point.Empty;
         listBox.DrawMode    = DrawMode.OwnerDrawFixed;
-        mainButton.Text     = DefaultItem;
-
     }
 
     public void AddCategory(string text)
@@ -75,6 +75,11 @@ public partial class LayeredComboBox : UserControl
             listBox.Items.Add(item);
         }
         AdjustHeight();
+    }
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+        mainButton.Text = DefaultItem;
     }
     private void AdjustHeight()
     {
