@@ -5,23 +5,23 @@ namespace SNHU_Banking;
 public partial class LayeredComboBox : UserControl
 {
     public override string Text => mainButton.Text.TrimStart(' ');
+    public bool IsDefaultOption => Text == DefaultItem;
     public string DefaultItem
     {
         get => _defaultItem;
         set
         {
-            value = value.Replace(Padding, "");
-            _defaultItem = Padding + value;
+            value = value.Replace(padding, "");
+            _defaultItem = padding + value;
         }
     }
-    public bool IsDefaultOption => Text == DefaultItem;
 
     public delegate void SelectionChangeHandler(int newIndex, int? newCategoryIndex);
     public event SelectionChangeHandler OnSelectionChange;
 
-    public const string Padding = "      ";
+    private const string padding = "      ";
     private readonly Dictionary<int, int> categoryIndexToItemIndex = [];
-    private string _defaultItem = Padding + "Pick an Item";
+    private string _defaultItem = padding + "Pick an Item";
     private int hoveredIndex;
 
     public LayeredComboBox()
@@ -35,10 +35,21 @@ public partial class LayeredComboBox : UserControl
 
     public void AddCategory(string text)
     {
-        LayeredListBoxItem llbi = new(text, true);
+        var llbi      = new LayeredListBoxItem(text, true, categoryIndexToItemIndex.Values.Count);
         int itemIndex = listBox.Items.Add(llbi);
-        categoryIndexToItemIndex.Add(itemIndex, categoryIndexToItemIndex.Count);
+        
+        categoryIndexToItemIndex.Add(itemIndex, llbi.CategoryIndex ?? 0);
         AdjustHeight();
+    }
+    public void SelectItem(int index)
+    {
+        foreach (var categoryIndex in categoryIndexToItemIndex.Values)
+            if (index >= categoryIndex)
+                index++;
+
+        listBox.SelectedIndex = index;
+        mainButton.Text = listBox.Items[index].ToString();
+        OnSelectionChange?.Invoke(index, (listBox.Items[index] as LayeredListBoxItem).CategoryIndex);
     }
     public void SetColor((Color foreColor, Color backColor) colors) => SetColor(colors.foreColor, colors.backColor);
     public void SetColor(Color foreColor, Color backColor)
@@ -66,8 +77,7 @@ public partial class LayeredComboBox : UserControl
             }
             else categoryInsertIndex = listBox.Items.Count;
 
-            item = new LayeredListBoxItem(Padding + text, false, categoryIndex);
-            //item = new LayeredListBoxItem("    " + text, false, categoryIndex);
+            item = new LayeredListBoxItem(padding + text, false, categoryIndex);
             listBox.Items.Insert(categoryInsertIndex, item);
         }
         else
@@ -77,28 +87,19 @@ public partial class LayeredComboBox : UserControl
         }
         AdjustHeight();
     }
+    
     protected override void OnLoad(EventArgs e)
     {
         base.OnLoad(e);
         mainButton.Text = DefaultItem;
     }
+    
     private void AdjustHeight()
     {
         const int height = 15;
         listBox.Height = Math.Min(listBox.Items.Count * height, height * 5) + 15;
     }
-    public void SelectItem(int index)
-    {
-        foreach (var categoryIndex in categoryIndexToItemIndex.Values)
-            if (index >= categoryIndex)
-                index++;
-
-        listBox.SelectedIndex = index;
-        mainButton.Text = listBox.Items[index].ToString();
-        OnSelectionChange?.Invoke(index, (listBox.Items[index] as LayeredListBoxItem).CategoryIndex);
-    }
-    
-    private void mainButton_Paint(object sender, PaintEventArgs e)
+    private void mainButton_Paint (object sender, PaintEventArgs e)
     {
         (mainButton.Width, mainButton.Height, listBox.Width) = (Width, Height, Width - 4);
 
@@ -123,7 +124,7 @@ public partial class LayeredComboBox : UserControl
         sideBar.Location = new Point(offset, offset);
         sideBar.Height   = mainButton.Height - offset * 2;
     }
-    private void mainButton_Click(object sender, EventArgs e)
+    private void mainButton_Click (object sender, EventArgs e)
     {
         listBox.Visible = !listBox.Visible;
 
@@ -152,7 +153,7 @@ public partial class LayeredComboBox : UserControl
             listBox.Invalidate(); // Redraw the list box to apply the hover effect
         }
     }
-    private void listBox_DrawItem(object? sender, DrawItemEventArgs e)
+    private void listBox_DrawItem (object? sender, DrawItemEventArgs e)
     {
         if (e.Index < 0 || e.Index >= listBox.Items.Count)
             return;

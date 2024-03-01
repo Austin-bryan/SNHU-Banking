@@ -64,15 +64,25 @@ public partial class NewAccountForm : Form
         "CDs"      => (EAccountCategory.CDs,      "Certificate of Deposit"),
         _ => (EAccountCategory.Checking, "Default"),
     };
-
-    private void nameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+    
+    private void nameTextBox_KeyPress    (object sender, KeyPressEventArgs e)
     {
         if (e.KeyChar == ' ' && nameTextBox.Text != "")                     // Allow a space if the text box isnt empty
             return;
         namedHasChanged = true;
     }
-
-    private void balanceTextBox_KeyPress(object sender, KeyPressEventArgs e)
+    private void nameTextBox_TextChanged (object sender, EventArgs e) => UpdateAppearence();
+    
+    private void balanceTextBox_Leave    (object sender, EventArgs e) => BalanceText = ThemePalette.OnMoneyTextbox_Leave(BalanceText);
+    private void balanceTextBox_KeyDown  (object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            e.SuppressKeyPress = true;
+            submitButton.PerformClick();
+        }
+    }
+    private void balanceTextBox_KeyPress (object sender, KeyPressEventArgs e)
     {
         if (!char.IsNumber(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))    // Surpress key if not number, but allow decimal
             e.Handled = true;
@@ -87,16 +97,7 @@ public partial class NewAccountForm : Form
             (e.KeyChar != '\b' && ((TextBox)sender).Text.Contains('.') && ((TextBox)sender).Text[((TextBox)sender).Text.IndexOf('.')..].Length > 2))
             e.Handled = true;
     }
-
-    private void accountTypeBox_OnSelectionChange(int newIndex, int? newCategoryIndex)
-    {
-        UpdateAppearence();
-        UpdateNameText();
-    }
-
-    private void balanceTextBox_Leave(object sender, EventArgs e) => BalanceText = ThemePalette.OnMoneyTextbox_Leave(BalanceText);
-    private void nameTextBox_TextChanged(object sender, EventArgs e) => UpdateAppearence();
-
+    
     private void submitButton_Click(object sender, EventArgs e)
     {
         BankAccount? account = BankAccount.CreateAccount(nameTextBox.Text, decimal.Parse(BalanceText), accountCategoryControl);
@@ -112,13 +113,24 @@ public partial class NewAccountForm : Form
         (Owner as MainForm).AddAccount(account);
         Close();
     }
-
-    private void balanceTextBox_KeyDown(object sender, KeyEventArgs e)
+    private void accountTypeBox_OnSelectionChange(int newIndex, int? newCategoryIndex)
     {
-        if (e.KeyCode == Keys.Enter)
+        int adjustedIndex = newIndex switch
         {
-            e.SuppressKeyPress = true;
-            submitButton.PerformClick();
-        }
+            1 => 0,
+            2 => 1,
+            4 => 2,
+            _ => throw new ArgumentException("Invalid index")
+        };
+
+        MessageBox.Show((newCategoryIndex, (EAccountCategory)newCategoryIndex.Value).ToString());
+        accountCategoryControl = (Owner as MainForm)
+            .GetAccountCategoryControls()
+            .Where(c => c.Category == (EAccountCategory)adjustedIndex)
+            .ToList()[0];
+
+        UpdateAppearence();
+        UpdateNameText();
+        
     }
 }

@@ -26,31 +26,6 @@ public partial class MainForm : Form
         transferPanelStartHeight = transferPanel.Height;
     }
 
-    private void ToAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)   => OnAccountSelected(toAccountBox, categoryIndex.Value);
-    private void FromAccountBox_OnSelectionChange(int newIndex, int? categoryIndex) => OnAccountSelected(fromAccountBox, categoryIndex.Value);
-    private void OnAccountSelected(LayeredComboBox lcb, int categoryIndex)
-    {
-        lcb.SetColor(ThemePalette.GetAccountTheme((EAccountCategory)categoryIndex));
-
-        if (toAccountBox.IsDefaultOption || fromAccountBox.IsDefaultOption)
-            return;
-        if (toAccountBox.Text == fromAccountBox.Text)
-            ShowTransferError();
-        else ShowTransferSubmit();
-    }
-
-    private void Account_OnBalanceChange(decimal balance, decimal ytd)
-    {
-        decimal total = 0;
-
-        accountsPanel.Controls
-            .ToList()
-            .OfType<AccountCategoryControl>()
-            .ToList()
-            .ForEach(acc => total += acc.Total);
-
-        pieChartTotalLabel.Text = ThemePalette.FormatMoney(total);
-    }
     public void AddAccount(BankAccount account)
     {
         if (account.Category != EAccountCategory.CDs)
@@ -58,10 +33,12 @@ public partial class MainForm : Form
         toAccountBox.AddItem(account.Name, (int)account.Category);
     }
     public void AddBalancePreview(BalancePreview balancePreview) => balancePreviewPanel.Controls.Add(balancePreview);
+    public List<AccountCategoryControl> GetAccountCategoryControls() => accountsPanel.Controls.ToList().OfType<AccountCategoryControl>().ToList();
 
     public void ShowTransferError()  => ChangeTransfer(25, true, false);
     public void ShowTransferSubmit() => ChangeTransfer(120, false, true);
     public void ResetTransfer()      => ChangeTransfer(0, false, false);
+    
     private void ChangeTransfer(int heightDelta, bool errorVisible, bool submitTransferVisible) =>
         (transferPanel.Height, errorLabel.Visible, submitTransferPanel.Visible) =
         (transferPanelStartHeight + heightDelta, errorVisible, submitTransferVisible);
@@ -75,9 +52,7 @@ public partial class MainForm : Form
         toAccountBox.AddCategory("Savings");
         toAccountBox.AddCategory("CDs");
     }
-
-    private void transferTB_Leave(object sender, EventArgs e) => transferTB.Text = ThemePalette.OnMoneyTextbox_Leave(transferTB.Text);
-
+    
     private void button1_Click(object sender, EventArgs e)
     {
         //decimal transferAmount = decimal.Parse(transferTB.Text);
@@ -103,7 +78,7 @@ public partial class MainForm : Form
         }
 
     }
-
+    private void transferTB_Leave(object sender, EventArgs e) => transferTB.Text = ThemePalette.OnMoneyTextbox_Leave(transferTB.Text);
     private void transferTB_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.Enter)
@@ -111,5 +86,30 @@ public partial class MainForm : Form
             e.SuppressKeyPress = true;
             submitTransferButton.PerformClick();
         }    
+    }
+    
+    private void ToAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)   => OnAccountSelected(toAccountBox, categoryIndex.Value);
+    private void FromAccountBox_OnSelectionChange(int newIndex, int? categoryIndex) => OnAccountSelected(fromAccountBox, categoryIndex.Value);
+    private void OnAccountSelected(LayeredComboBox lcb, int categoryIndex)
+    {
+        lcb.SetColor(ThemePalette.GetAccountTheme((EAccountCategory)categoryIndex));
+
+        if (toAccountBox.IsDefaultOption || fromAccountBox.IsDefaultOption)
+            return;
+        if (toAccountBox.Text == fromAccountBox.Text)
+            ShowTransferError();
+        else ShowTransferSubmit();
+    }
+    private void Account_OnBalanceChange(decimal balance, decimal ytd)
+    {
+        decimal total = 0;
+
+        accountsPanel.Controls
+            .ToList()
+            .OfType<AccountCategoryControl>()
+            .ToList()
+            .ForEach(acc => total += acc.Total);
+
+        pieChartTotalLabel.Text = ThemePalette.FormatMoney(total);
     }
 }
