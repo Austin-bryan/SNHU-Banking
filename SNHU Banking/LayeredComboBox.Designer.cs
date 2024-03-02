@@ -36,7 +36,7 @@
             // 
             // mainButton
             // 
-            mainButton.BackColor = Color.FromArgb(80, 80, 80);
+            mainButton.BackColor = Color.FromArgb(70, 70, 70);
             mainButton.FlatAppearance.BorderColor = Color.Black;
             mainButton.FlatStyle = FlatStyle.Flat;
             mainButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
@@ -53,7 +53,7 @@
             // 
             // sideBar
             // 
-            sideBar.BackColor = Color.FromArgb(60, 60, 60);
+            sideBar.BackColor = Color.FromArgb(50, 50, 50);
             sideBar.Enabled = false;
             sideBar.Location = new Point(5, 5);
             sideBar.Name = "sideBar";
@@ -63,7 +63,7 @@
             // 
             // listBox
             // 
-            listBox.BackColor = Color.FromArgb(80, 80, 80);
+            listBox.BackColor = Color.FromArgb(70, 70, 70);
             listBox.BorderStyle = BorderStyle.None;
             listBox.ForeColor = Color.White;
             listBox.FormattingEnabled = true;

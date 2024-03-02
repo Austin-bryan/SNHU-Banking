@@ -62,7 +62,7 @@ public partial class NewAccountForm : Form
         "Checking" => (EAccountCategory.Checking, "Checking Account"),
         "Savings"  => (EAccountCategory.Savings,  "Savings Account"),
         "CDs"      => (EAccountCategory.CDs,      "Certificate of Deposit"),
-        _ => (EAccountCategory.Checking, "Default"),
+        _          => (EAccountCategory.Checking, "Default"),
     };
     
     private void nameTextBox_KeyPress    (object sender, KeyPressEventArgs e)
@@ -74,6 +74,7 @@ public partial class NewAccountForm : Form
     private void nameTextBox_TextChanged (object sender, EventArgs e) => UpdateAppearence();
     
     private void balanceTextBox_Leave    (object sender, EventArgs e) => BalanceText = ThemePalette.OnMoneyTextbox_Leave(BalanceText);
+    private void balanceTextBox_KeyPress (object sender, KeyPressEventArgs e) => ThemePalette.OnMoneyTextBox_KeyPress(sender, e);
     private void balanceTextBox_KeyDown  (object sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.Enter)
@@ -81,21 +82,6 @@ public partial class NewAccountForm : Form
             e.SuppressKeyPress = true;
             submitButton.PerformClick();
         }
-    }
-    private void balanceTextBox_KeyPress (object sender, KeyPressEventArgs e)
-    {
-        if (!char.IsNumber(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))    // Surpress key if not number, but allow decimal
-            e.Handled = true;
-        else if (e.KeyChar == '.' && ((TextBox)sender).Text.Contains('.'))                  // Suppress key press if a decimal point is already present
-            e.Handled = true;
-        else if (e.KeyChar == '.' && ((TextBox)sender).Text.Length == 0)                    // Surpress key if first character is decimal
-            e.Handled = true;
-        // Surpress key if a decimal has been placed, and two decimal points have already been added. However, allow a backspace to delete text. 
-        // Also allows editing of the textbox if the entire textbox contents are selected
-        else if (
-            !(balanceTextBox.SelectionStart == 0 && balanceTextBox.SelectionLength == BalanceText.Length) &&
-            (e.KeyChar != '\b' && ((TextBox)sender).Text.Contains('.') && ((TextBox)sender).Text[((TextBox)sender).Text.IndexOf('.')..].Length > 2))
-            e.Handled = true;
     }
     
     private void submitButton_Click(object sender, EventArgs e)

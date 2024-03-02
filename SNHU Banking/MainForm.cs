@@ -22,13 +22,17 @@ public partial class MainForm : Form
             });
 
         fromAccountBox.OnSelectionChange += FromAccountBox_OnSelectionChange;
-        toAccountBox.OnSelectionChange += ToAccountBox_OnSelectionChange;
-        transferPanelStartHeight = transferPanel.Height;
+        toAccountBox.OnSelectionChange   += ToAccountBox_OnSelectionChange;
+        transferPanelStartHeight          = transferPanel.Height = 232;
     }
 
     public void SwitchPages(bool showAccounView)
     {
         accountsPanel.Visible = pieChartPanel.Visible = transferPanel.Visible = bankAccountsLabel.Visible = !showAccounView;
+
+        AccountPage accountPage = new();
+        accountPage.Location = new Point(Width / 2 - accountPage.Width / 2, 0);
+        Controls.Add(accountPage);
     }
 
     public void AddAccount(BankAccount account)
@@ -40,10 +44,10 @@ public partial class MainForm : Form
     public void AddBalancePreview(BalancePreview balancePreview) => balancePreviewPanel.Controls.Add(balancePreview);
     public List<AccountCategoryControl> GetAccountCategoryControls() => accountsPanel.Controls.ToList().OfType<AccountCategoryControl>().ToList();
 
-    public void ShowTransferError()  => ChangeTransfer(25, true, false);
+    public void ShowTransferError()  => ChangeTransfer(25,  true,  false);
     public void ShowTransferSubmit() => ChangeTransfer(120, false, true);
-    public void ResetTransfer()      => ChangeTransfer(0, false, false);
-    
+    public void ResetTransfer()      => ChangeTransfer(0,   false, false);
+
     private void ChangeTransfer(int heightDelta, bool errorVisible, bool submitTransferVisible) =>
         (transferPanel.Height, errorLabel.Visible, submitTransferPanel.Visible) =
         (transferPanelStartHeight + heightDelta, errorVisible, submitTransferVisible);
@@ -57,30 +61,20 @@ public partial class MainForm : Form
         toAccountBox.AddCategory("Savings");
         toAccountBox.AddCategory("CDs");
     }
-    
+
     private void button1_Click(object sender, EventArgs e)
     {
-        //decimal transferAmount = decimal.Parse(transferTB.Text);
-
         if (decimal.TryParse(transferTB.Text, out decimal transferAmount))
         {
-            BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);      
-         
+            BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);
             BankAccount toAccount = BankAccount.GetBankAccount(toAccountBox.Text);
 
             // Change balances
             if (fromAccount.TryWithdraw(transferAmount))
-            {
                 toAccount.Deposit(transferAmount);
-                //TODO: toAccount.BankAccountControl.UpdateDisplay();
-                //TODO: fromAccount.BankAccountControl.UpdateDisplay();
-            }
-
+            //TODO: toAccount.BankAccountControl.UpdateDisplay();
         }
-        else
-        {
-            MessageBox.Show("Must enter a number.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        else MessageBox.Show("Must enter a number.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
     }
     private void transferTB_Leave(object sender, EventArgs e) => transferTB.Text = ThemePalette.OnMoneyTextbox_Leave(transferTB.Text);
@@ -90,10 +84,10 @@ public partial class MainForm : Form
         {
             e.SuppressKeyPress = true;
             submitTransferButton.PerformClick();
-        }    
+        }
     }
-    
-    private void ToAccountBox_OnSelectionChange(int newIndex, int? categoryIndex)   => OnAccountSelected(toAccountBox, categoryIndex.Value);
+
+    private void ToAccountBox_OnSelectionChange  (int newIndex, int? categoryIndex) => OnAccountSelected(toAccountBox,   categoryIndex.Value);
     private void FromAccountBox_OnSelectionChange(int newIndex, int? categoryIndex) => OnAccountSelected(fromAccountBox, categoryIndex.Value);
     private void OnAccountSelected(LayeredComboBox lcb, int categoryIndex)
     {
@@ -102,7 +96,7 @@ public partial class MainForm : Form
         if (toAccountBox.IsDefaultOption || fromAccountBox.IsDefaultOption)
             return;
         if (toAccountBox.Text == fromAccountBox.Text)
-            ShowTransferError();
+             ShowTransferError();
         else ShowTransferSubmit();
     }
     private void Account_OnBalanceChange(decimal balance, decimal ytd)
@@ -117,4 +111,6 @@ public partial class MainForm : Form
 
         pieChartTotalLabel.Text = ThemePalette.FormatMoney(total);
     }
+
+    private void transferTB_KeyPress(object sender, KeyPressEventArgs e) => ThemePalette.OnMoneyTextBox_KeyPress(sender, e);
 }

@@ -4,8 +4,8 @@ namespace SNHU_Banking;
 
 public static class ThemePalette
 {
-    public static readonly Color FormBackColor    = Color.FromArgb(255, 40, 40, 40);
-    public static readonly Color ControlBackColor = Color.FromArgb(255, 60, 60, 60);
+    public static readonly Color FormBackColor    = Color.FromArgb(255, 30, 30, 30);
+    public static readonly Color ControlBackColor = Color.FromArgb(255, 50, 50, 50);
     public static readonly Color CheckingTheme    = Color.FromArgb(255, 75, 110, 255);
     public static readonly Color SavingsTheme     = Color.FromArgb(255, 40, 240, 40);
     public static readonly Color CDsTheme         = Color.FromArgb(255, 220, 40, 50);
@@ -34,5 +34,22 @@ public static class ThemePalette
         else if (Regex.IsMatch(text, @"\.\d$"))           // If the user enters .N where N is any digit, add a zero at the end
             text += "0";
         return text;
+    }
+    public static void OnMoneyTextBox_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        TextBox tb = (TextBox)sender;
+        if (!char.IsNumber(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))    // Surpress key if not number, but allow decimal
+            e.Handled = true;
+        else if (e.KeyChar == '.' && tb.Text.Contains('.'))                  // Suppress key press if a decimal point is already present
+            e.Handled = true;
+        else if (e.KeyChar == '.' && tb.Text.Length == 0)                    // Surpress key if first character is decimal
+            e.Handled = true;
+        
+        // Surpress key if a decimal has been placed, and two decimal points have already been added. However, allow a backspace to delete text. 
+        // Also allows editing of the textbox if the entire textbox contents are selected
+        else if (
+            !(tb.SelectionStart == 0 && tb.SelectionLength == tb.Text.Length) &&
+            e.KeyChar != '\b' && tb.Text.Contains('.') && tb.Text[tb.Text.IndexOf('.')..].Length > 2)
+            e.Handled = true;
     }
 }

@@ -63,8 +63,8 @@
             // categoryLabel
             // 
             categoryLabel.AutoSize = true;
-            categoryLabel.BackColor = Color.FromArgb(60, 60, 60);
-            categoryLabel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            categoryLabel.BackColor = Color.FromArgb(50, 50, 50);
+            categoryLabel.Font = new Font("Segoe UI", 18F);
             categoryLabel.ForeColor = SystemColors.ButtonFace;
             categoryLabel.Location = new Point(10, 6);
             categoryLabel.Name = "categoryLabel";
@@ -76,8 +76,8 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.BackColor = Color.FromArgb(60, 60, 60);
-            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.BackColor = Color.FromArgb(50, 50, 50);
+            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.ButtonFace;
             label6.Location = new Point(3, 10);
             label6.Name = "label6";
@@ -87,7 +87,7 @@
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.BackColor = Color.FromArgb(60, 60, 60);
+            tableLayoutPanel2.BackColor = Color.FromArgb(50, 50, 50);
             tableLayoutPanel2.ColumnCount = 4;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.14372F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.9266338F));
@@ -106,8 +106,8 @@
             // ytdLabel
             // 
             ytdLabel.AutoSize = true;
-            ytdLabel.BackColor = Color.FromArgb(60, 60, 60);
-            ytdLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            ytdLabel.BackColor = Color.FromArgb(50, 50, 50);
+            ytdLabel.Font = new Font("Segoe UI", 9F);
             ytdLabel.ForeColor = SystemColors.ButtonFace;
             ytdLabel.Location = new Point(756, 0);
             ytdLabel.Name = "ytdLabel";
@@ -119,8 +119,8 @@
             // totalLabel
             // 
             totalLabel.AutoSize = true;
-            totalLabel.BackColor = Color.FromArgb(60, 60, 60);
-            totalLabel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            totalLabel.BackColor = Color.FromArgb(50, 50, 50);
+            totalLabel.Font = new Font("Segoe UI", 9F);
             totalLabel.ForeColor = SystemColors.ButtonFace;
             totalLabel.Location = new Point(475, 0);
             totalLabel.Name = "totalLabel";
@@ -131,7 +131,7 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.BackColor = Color.FromArgb(60, 60, 60);
+            tableLayoutPanel1.BackColor = Color.FromArgb(50, 50, 50);
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.14372F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.9266338F));
@@ -151,8 +151,8 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(60, 60, 60);
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.BackColor = Color.FromArgb(50, 50, 50);
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label2.ForeColor = SystemColors.ButtonFace;
             label2.Location = new Point(1051, 0);
             label2.Name = "label2";
@@ -164,8 +164,8 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(60, 60, 60);
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.BackColor = Color.FromArgb(50, 50, 50);
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label3.ForeColor = SystemColors.ButtonFace;
             label3.Location = new Point(756, 0);
             label3.Name = "label3";
@@ -177,8 +177,8 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(60, 60, 60);
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.BackColor = Color.FromArgb(50, 50, 50);
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label4.ForeColor = SystemColors.ButtonFace;
             label4.Location = new Point(475, 0);
             label4.Name = "label4";
@@ -190,8 +190,8 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(60, 60, 60);
-            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.BackColor = Color.FromArgb(50, 50, 50);
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label5.ForeColor = SystemColors.ButtonFace;
             label5.Location = new Point(3, 0);
             label5.Name = "label5";
@@ -202,8 +202,8 @@
             // 
             // dividerPanel
             // 
-            dividerPanel.BackColor = Color.FromArgb(110, 110, 100);
-            dividerPanel.Location = new Point(10, 8);
+            dividerPanel.BackColor = Color.FromArgb(90, 90, 90);
+            dividerPanel.Location = new Point(10, 7);
             dividerPanel.Name = "dividerPanel";
             dividerPanel.Size = new Size(1353, 1);
             dividerPanel.TabIndex = 8;
@@ -224,7 +224,7 @@
             // 
             // accountsFlowPanel
             // 
-            accountsFlowPanel.BackColor = Color.FromArgb(60, 60, 60);
+            accountsFlowPanel.BackColor = Color.FromArgb(50, 50, 50);
             accountsFlowPanel.Controls.Add(tableLayoutPanel1);
             accountsFlowPanel.Location = new Point(25, 41);
             accountsFlowPanel.Name = "accountsFlowPanel";
@@ -233,7 +233,7 @@
             // 
             // totalPanel
             // 
-            totalPanel.BackColor = Color.FromArgb(60, 60, 60);
+            totalPanel.BackColor = Color.FromArgb(50, 50, 50);
             totalPanel.Controls.Add(label6);
             totalPanel.Controls.Add(tableLayoutPanel2);
             totalPanel.Controls.Add(dividerPanel);
@@ -244,7 +244,7 @@
             // 
             // mainPanel
             // 
-            mainPanel.BackColor = Color.FromArgb(60, 60, 60);
+            mainPanel.BackColor = Color.FromArgb(50, 50, 50);
             mainPanel.Controls.Add(categoryLabel);
             mainPanel.Controls.Add(totalPanel);
             mainPanel.Controls.Add(accountsFlowPanel);
@@ -266,7 +266,7 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(60, 60, 60);
-            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI", 18F);
             label1.ForeColor = SystemColors.ButtonFace;
             label1.Location = new Point(281, 105);
             label1.Name = "label1";
@@ -315,7 +315,7 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(60, 60, 60);
-            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label7.ForeColor = SystemColors.ButtonFace;
             label7.Location = new Point(157, 0);
             label7.Name = "label7";
@@ -328,7 +328,7 @@
             // 
             label10.AutoSize = true;
             label10.BackColor = Color.FromArgb(60, 60, 60);
-            label10.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label10.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label10.ForeColor = SystemColors.ButtonFace;
             label10.Location = new Point(114, 0);
             label10.Name = "label10";

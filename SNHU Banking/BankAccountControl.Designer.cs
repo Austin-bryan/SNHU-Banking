@@ -38,7 +38,7 @@ partial class BankAccountControl
         // 
         // tableLayoutPanel1
         // 
-        tableLayoutPanel1.BackColor = Color.FromArgb(60, 60, 60);
+        tableLayoutPanel1.BackColor = Color.FromArgb(50, 50, 50);
         tableLayoutPanel1.ColumnCount = 4;
         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.14372F));
         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.9266338F));
@@ -58,7 +58,7 @@ partial class BankAccountControl
         // interestLabel
         // 
         interestLabel.AutoSize = true;
-        interestLabel.BackColor = Color.FromArgb(60, 60, 60);
+        interestLabel.BackColor = Color.FromArgb(50, 50, 50);
         interestLabel.Font = new Font("Segoe UI", 9F);
         interestLabel.ForeColor = SystemColors.ButtonFace;
         interestLabel.Location = new Point(1051, 0);
@@ -70,7 +70,7 @@ partial class BankAccountControl
         // ytdLabel
         // 
         ytdLabel.AutoSize = true;
-        ytdLabel.BackColor = Color.FromArgb(60, 60, 60);
+        ytdLabel.BackColor = Color.FromArgb(50, 50, 50);
         ytdLabel.Font = new Font("Segoe UI", 9F);
         ytdLabel.ForeColor = SystemColors.ButtonFace;
         ytdLabel.Location = new Point(756, 0);
@@ -83,7 +83,7 @@ partial class BankAccountControl
         // balanceLabel
         // 
         balanceLabel.AutoSize = true;
-        balanceLabel.BackColor = Color.FromArgb(60, 60, 60);
+        balanceLabel.BackColor = Color.FromArgb(50, 50, 50);
         balanceLabel.Font = new Font("Segoe UI", 9F);
         balanceLabel.ForeColor = SystemColors.ButtonFace;
         balanceLabel.Location = new Point(475, 0);
@@ -96,7 +96,7 @@ partial class BankAccountControl
         // nameLabel
         // 
         nameLabel.AutoSize = true;
-        nameLabel.BackColor = Color.FromArgb(60, 60, 60);
+        nameLabel.BackColor = Color.FromArgb(50, 50, 50);
         nameLabel.Cursor = Cursors.Hand;
         nameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
         nameLabel.ForeColor = SystemColors.MenuHighlight;

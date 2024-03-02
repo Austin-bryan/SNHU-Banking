@@ -43,8 +43,17 @@
             descriptionLabel = new Label();
             amountLabel = new Label();
             transactionBalanceLabel = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            panel3 = new Panel();
+            makeTransacLabel = new Label();
+            label1 = new Label();
+            transferButton = new Button();
+            transferTB = new TextBox();
+            depositButton = new Button();
+            withdrawButton = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -58,7 +67,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(40, 40, 40);
+            panel2.BackColor = Color.FromArgb(30, 30, 30);
             panel2.Controls.Add(yieldLabel);
             panel2.Controls.Add(ytdLabel);
             panel2.Controls.Add(balanceLabel);
@@ -143,7 +152,7 @@
             nameLabel.AutoSize = true;
             nameLabel.Font = new Font("Segoe UI", 20F);
             nameLabel.ForeColor = Color.White;
-            nameLabel.Location = new Point(13, 2);
+            nameLabel.Location = new Point(3, 16);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new Size(191, 37);
             nameLabel.TabIndex = 0;
@@ -154,7 +163,7 @@
             transactionLabel.AutoSize = true;
             transactionLabel.Font = new Font("Segoe UI", 15F);
             transactionLabel.ForeColor = Color.White;
-            transactionLabel.Location = new Point(10, 127);
+            transactionLabel.Location = new Point(10, 110);
             transactionLabel.Name = "transactionLabel";
             transactionLabel.Size = new Size(178, 28);
             transactionLabel.TabIndex = 7;
@@ -162,8 +171,8 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.FromArgb(60, 60, 60);
-            pictureBox1.Location = new Point(10, 158);
+            pictureBox1.BackColor = Color.FromArgb(50, 50, 50);
+            pictureBox1.Location = new Point(10, 141);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(787, 36);
             pictureBox1.TabIndex = 8;
@@ -172,10 +181,10 @@
             // dateLabel
             // 
             dateLabel.AutoSize = true;
-            dateLabel.BackColor = Color.FromArgb(60, 60, 60);
+            dateLabel.BackColor = Color.FromArgb(50, 50, 50);
             dateLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             dateLabel.ForeColor = Color.White;
-            dateLabel.Location = new Point(20, 169);
+            dateLabel.Location = new Point(20, 152);
             dateLabel.Name = "dateLabel";
             dateLabel.Size = new Size(34, 15);
             dateLabel.TabIndex = 9;
@@ -184,10 +193,10 @@
             // descriptionLabel
             // 
             descriptionLabel.AutoSize = true;
-            descriptionLabel.BackColor = Color.FromArgb(60, 60, 60);
+            descriptionLabel.BackColor = Color.FromArgb(50, 50, 50);
             descriptionLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             descriptionLabel.ForeColor = Color.White;
-            descriptionLabel.Location = new Point(139, 169);
+            descriptionLabel.Location = new Point(139, 152);
             descriptionLabel.Name = "descriptionLabel";
             descriptionLabel.Size = new Size(71, 15);
             descriptionLabel.TabIndex = 10;
@@ -196,10 +205,10 @@
             // amountLabel
             // 
             amountLabel.AutoSize = true;
-            amountLabel.BackColor = Color.FromArgb(60, 60, 60);
+            amountLabel.BackColor = Color.FromArgb(50, 50, 50);
             amountLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             amountLabel.ForeColor = Color.White;
-            amountLabel.Location = new Point(642, 169);
+            amountLabel.Location = new Point(612, 152);
             amountLabel.Name = "amountLabel";
             amountLabel.Size = new Size(52, 15);
             amountLabel.TabIndex = 11;
@@ -208,20 +217,127 @@
             // transactionBalanceLabel
             // 
             transactionBalanceLabel.AutoSize = true;
-            transactionBalanceLabel.BackColor = Color.FromArgb(60, 60, 60);
+            transactionBalanceLabel.BackColor = Color.FromArgb(50, 50, 50);
             transactionBalanceLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             transactionBalanceLabel.ForeColor = Color.White;
-            transactionBalanceLabel.Location = new Point(726, 169);
+            transactionBalanceLabel.Location = new Point(736, 152);
             transactionBalanceLabel.Name = "transactionBalanceLabel";
             transactionBalanceLabel.Size = new Size(50, 15);
             transactionBalanceLabel.TabIndex = 12;
             transactionBalanceLabel.Text = "Balance";
             // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Location = new Point(11, 183);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(796, 570);
+            flowLayoutPanel1.TabIndex = 13;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(50, 50, 50);
+            panel3.Controls.Add(makeTransacLabel);
+            panel3.Controls.Add(label1);
+            panel3.Controls.Add(transferButton);
+            panel3.Controls.Add(transferTB);
+            panel3.Controls.Add(depositButton);
+            panel3.Controls.Add(withdrawButton);
+            panel3.Location = new Point(810, 11);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(307, 166);
+            panel3.TabIndex = 14;
+            // 
+            // makeTransacLabel
+            // 
+            makeTransacLabel.AutoSize = true;
+            makeTransacLabel.BackColor = Color.FromArgb(50, 50, 50);
+            makeTransacLabel.Font = new Font("Segoe UI", 15F);
+            makeTransacLabel.ForeColor = Color.White;
+            makeTransacLabel.Location = new Point(11, 7);
+            makeTransacLabel.Name = "makeTransacLabel";
+            makeTransacLabel.Size = new Size(178, 28);
+            makeTransacLabel.TabIndex = 8;
+            makeTransacLabel.Text = "Make a Transaction";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.FromArgb(50, 50, 50);
+            label1.Font = new Font("Segoe UI", 10F);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(11, 50);
+            label1.Name = "label1";
+            label1.Size = new Size(59, 19);
+            label1.TabIndex = 7;
+            label1.Text = "Amount";
+            // 
+            // transferButton
+            // 
+            transferButton.BackColor = Color.FromArgb(50, 150, 40);
+            transferButton.FlatAppearance.BorderSize = 0;
+            transferButton.FlatStyle = FlatStyle.Flat;
+            transferButton.ForeColor = Color.Black;
+            transferButton.Location = new Point(11, 117);
+            transferButton.Margin = new Padding(10);
+            transferButton.Name = "transferButton";
+            transferButton.Size = new Size(287, 37);
+            transferButton.TabIndex = 5;
+            transferButton.Text = "Withdraw";
+            transferButton.UseVisualStyleBackColor = false;
+            transferButton.Click += transferButton_Click;
+            // 
+            // transferTB
+            // 
+            transferTB.BackColor = Color.FromArgb(30, 30, 30);
+            transferTB.BorderStyle = BorderStyle.None;
+            transferTB.Font = new Font("Segoe UI", 15F);
+            transferTB.ForeColor = Color.White;
+            transferTB.Location = new Point(11, 79);
+            transferTB.Margin = new Padding(10);
+            transferTB.Name = "transferTB";
+            transferTB.Size = new Size(284, 27);
+            transferTB.TabIndex = 4;
+            transferTB.KeyPress += transferTB_KeyPress;
+            transferTB.Leave += transferTB_Leave;
+            // 
+            // depositButton
+            // 
+            depositButton.BackColor = Color.FromArgb(50, 150, 50);
+            depositButton.FlatAppearance.BorderSize = 0;
+            depositButton.FlatStyle = FlatStyle.Flat;
+            depositButton.ForeColor = Color.Black;
+            depositButton.Location = new Point(220, 46);
+            depositButton.Margin = new Padding(10);
+            depositButton.Name = "depositButton";
+            depositButton.Size = new Size(75, 23);
+            depositButton.TabIndex = 1;
+            depositButton.Text = "Deposit";
+            depositButton.UseVisualStyleBackColor = false;
+            depositButton.Click += depositButton_Click;
+            // 
+            // withdrawButton
+            // 
+            withdrawButton.BackColor = Color.FromArgb(80, 80, 80);
+            withdrawButton.FlatAppearance.BorderSize = 0;
+            withdrawButton.FlatStyle = FlatStyle.Flat;
+            withdrawButton.ForeColor = Color.White;
+            withdrawButton.Location = new Point(136, 46);
+            withdrawButton.Margin = new Padding(10);
+            withdrawButton.Name = "withdrawButton";
+            withdrawButton.Size = new Size(75, 23);
+            withdrawButton.TabIndex = 0;
+            withdrawButton.Text = "Withdraw";
+            withdrawButton.UseVisualStyleBackColor = false;
+            withdrawButton.Click += withdrawButton_Click;
+            // 
             // AccountPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(40, 40, 40);
+            BackColor = Color.FromArgb(30, 30, 30);
+            Controls.Add(panel3);
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(transactionBalanceLabel);
             Controls.Add(amountLabel);
             Controls.Add(descriptionLabel);
@@ -231,10 +347,12 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "AccountPage";
-            Size = new Size(809, 800);
+            Size = new Size(1122, 800);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -256,5 +374,13 @@
         private Label descriptionLabel;
         private Label amountLabel;
         private Label transactionBalanceLabel;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Panel panel3;
+        private Button depositButton;
+        private Button withdrawButton;
+        private Button transferButton;
+        private TextBox transferTB;
+        private Label makeTransacLabel;
+        private Label label1;
     }
 }

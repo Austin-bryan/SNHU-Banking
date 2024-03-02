@@ -55,6 +55,7 @@
             // 
             // balanceLabel
             // 
+            balanceLabel.BackColor = Color.FromArgb(50, 50, 50);
             balanceLabel.ForeColor = Color.White;
             balanceLabel.Location = new Point(277, 11);
             balanceLabel.Name = "balanceLabel";
@@ -67,7 +68,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(60, 60, 60);
+            BackColor = Color.FromArgb(50, 50, 50);
             Controls.Add(balanceLabel);
             Controls.Add(accountLabel);
             Controls.Add(colorSplash);

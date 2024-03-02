@@ -5,7 +5,7 @@ namespace SNHU_Banking;
 public partial class LayeredComboBox : UserControl
 {
     public override string Text => mainButton.Text.TrimStart(' ');
-    public bool IsDefaultOption => Text == DefaultItem;
+    public bool IsDefaultOption => Text == DefaultItem.TrimStart(' ');
     public string DefaultItem
     {
         get => _defaultItem;
@@ -118,7 +118,7 @@ public partial class LayeredComboBox : UserControl
             new(root.X + width, root.Y + height + thickness),
         ];
 
-        e.Graphics.FillPolygon(new SolidBrush(Color.FromArgb(40, 40, 40)), points);
+        e.Graphics.FillPolygon(new SolidBrush(Color.FromArgb(30, 30, 30)), points);
 
         int offset       = 5;
         sideBar.Location = new Point(offset, offset);
@@ -164,8 +164,8 @@ public partial class LayeredComboBox : UserControl
         bool isHovered  = e.Index == hoveredIndex;
         Color color     = Color.White;
         Color backColor = item.IsCategory || !isHovered
-                            ? Color.FromArgb(80, 80, 80)
-                            : Color.FromArgb(110, 110, 110);
+                            ? Color.FromArgb(70, 70, 70)
+                            : Color.FromArgb(100, 100, 100);
 
         using (Brush backBrush = new SolidBrush(backColor))
             e.Graphics.FillRectangle(backBrush, e.Bounds);
@@ -176,6 +176,8 @@ public partial class LayeredComboBox : UserControl
     }
     private void listBox_MouseDown(object sender, MouseEventArgs e)
     {
+        if (hoveredIndex == -1) 
+            return;
         if (categoryIndexToItemIndex.ContainsValue(hoveredIndex))
             return;
         mainButton.Text = listBox.Items[hoveredIndex].ToString();

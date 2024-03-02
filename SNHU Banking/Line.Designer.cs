@@ -34,7 +34,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.FromArgb(110, 110, 110);
+            pictureBox1.BackColor = Color.FromArgb(90, 90, 90);
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(151, 1);

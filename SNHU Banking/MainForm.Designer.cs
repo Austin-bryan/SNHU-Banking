@@ -71,7 +71,7 @@
             // accountsPanel
             // 
             accountsPanel.AutoScroll = true;
-            accountsPanel.BackColor = Color.FromArgb(40, 40, 40);
+            accountsPanel.BackColor = Color.FromArgb(30, 30, 30);
             accountsPanel.Controls.Add(accountCategoryControl1);
             accountsPanel.Controls.Add(accountCategoryControl2);
             accountsPanel.Controls.Add(accountCategoryControl3);
@@ -115,7 +115,7 @@
             // 
             // transferPanel
             // 
-            transferPanel.BackColor = Color.FromArgb(60, 60, 60);
+            transferPanel.BackColor = Color.FromArgb(50, 50, 50);
             transferPanel.Controls.Add(submitTransferPanel);
             transferPanel.Controls.Add(errorLabel);
             transferPanel.Controls.Add(toAccountBox);
@@ -165,6 +165,7 @@
             transferTB.Size = new Size(414, 27);
             transferTB.TabIndex = 14;
             transferTB.KeyDown += transferTB_KeyDown;
+            transferTB.KeyPress += transferTB_KeyPress;
             transferTB.Leave += transferTB_Leave;
             // 
             // amountLabel
@@ -243,7 +244,7 @@
             // 
             // pieChartPanel
             // 
-            pieChartPanel.BackColor = Color.FromArgb(60, 60, 60);
+            pieChartPanel.BackColor = Color.FromArgb(50, 50, 50);
             pieChartPanel.Controls.Add(pieChart);
             pieChartPanel.Controls.Add(pieChartTotalLabel);
             pieChartPanel.Controls.Add(balancePreviewPanel);
@@ -318,7 +319,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(40, 40, 40);
+            BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1643, 1061);
             Controls.Add(pieChartPanel);
             Controls.Add(accountsPanel);

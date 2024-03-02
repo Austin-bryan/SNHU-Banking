@@ -68,7 +68,7 @@
             // 
             // nameTextBox
             // 
-            nameTextBox.BackColor = Color.FromArgb(60, 60, 60);
+            nameTextBox.BackColor = Color.FromArgb(50, 50, 50);
             nameTextBox.BorderStyle = BorderStyle.FixedSingle;
             nameTextBox.ForeColor = Color.White;
             nameTextBox.Location = new Point(126, 90);
@@ -80,7 +80,7 @@
             // 
             // balanceTextBox
             // 
-            balanceTextBox.BackColor = Color.FromArgb(60, 60, 60);
+            balanceTextBox.BackColor = Color.FromArgb(50, 50, 50);
             balanceTextBox.BorderStyle = BorderStyle.FixedSingle;
             balanceTextBox.ForeColor = Color.White;
             balanceTextBox.Location = new Point(126, 122);
@@ -133,7 +133,7 @@
             // 
             // backgroundPanel
             // 
-            backgroundPanel.BackColor = Color.FromArgb(30, 30, 30);
+            backgroundPanel.BackColor = Color.FromArgb(20, 20, 20);
             backgroundPanel.Location = new Point(0, 0);
             backgroundPanel.Name = "backgroundPanel";
             backgroundPanel.Size = new Size(4039, 44);
@@ -161,7 +161,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(40, 40, 40);
+            BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(464, 333);
             Controls.Add(accountTypeBox);
             Controls.Add(submitButton);

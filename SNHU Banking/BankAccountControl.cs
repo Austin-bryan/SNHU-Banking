@@ -20,10 +20,9 @@ public partial class BankAccountControl : UserControl
         UpdateBalance();
     }
 
-    public void UpdateBalance() => balanceLabel.Text = string.Format("${0:#,##0.00}", bankAccount.Balance);
+    public void UpdateBalance()             => balanceLabel.Text = string.Format("${0:#,##0.00}", bankAccount.Balance);
+    public void Deposit(decimal amount)     => bankAccount.Deposit(amount);
+    public bool TryWithdraw(decimal amount) => bankAccount.TryWithdraw(amount);
 
-    private void nameLabel_Click(object sender, EventArgs e)
-    {
-        (ParentForm as MainForm).SwitchPages(true);
-    }
+    private void nameLabel_Click(object sender, EventArgs e) => (ParentForm as MainForm).SwitchPages(true);
 }
