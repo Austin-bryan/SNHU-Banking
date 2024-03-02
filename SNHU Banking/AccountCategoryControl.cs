@@ -24,7 +24,6 @@ public partial class AccountCategoryControl : UserControl
     private MainForm mainForm;
     private readonly BalancePreview balancePreview;
 
-
     public AccountCategoryControl()
     {
         InitializeComponent();

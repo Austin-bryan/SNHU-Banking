@@ -1,4 +1,6 @@
-﻿namespace SNHU_Banking;
+﻿using System.Windows.Forms;
+
+namespace SNHU_Banking;
 
 public partial class AccountPage : UserControl
 {
@@ -10,9 +12,30 @@ public partial class AccountPage : UserControl
     {
         bankAccountControl = bac;
         InitializeComponent();
+        accountDisplayBackgorund.BackColor = ThemePalette.GetAccountTheme(bankAccountControl.Category).BackColor;
+        
+        nameLabel.Text        = bankAccountControl.Name;
+        accountTypeLabel.Text = bankAccountControl.Category.ToString().TrimEnd('s') + " Account";
+        balanceLabel.Text     = ThemePalette.FormatMoney(bankAccountControl.Balance);
+        ytdLabel.Text         = ThemePalette.FormatMoney(bankAccountControl.YTD);
+        yieldLabel.Text       = bankAccountControl.Yield.ToString() + "%";
+
+        foreach (var transaction in bac.Transactions)
+            CreateTransationControl(transaction);
     }
 
-    private void withdrawButton_Click(object sender, EventArgs e) => SwitchModes(ETransferMode.Withdraw, (Color.FromArgb(200, 50, 50), withdrawButton), (Color.Black, depositButton), "Widthdraw", Color.White);
+    private void CreateTransationControl(Transaction transaction)
+    {
+        noTransLabel.Hide();
+
+        TransactionControl tc = new(transaction);
+        tc.Show();
+        tc.Parent = transactionPanel;
+        tc.Margin = new Padding(0, 3, 3, 3);
+        transactionPanel.Controls.SetChildIndex(tc, 0);
+    }
+
+    private void withdrawButton_Click(object sender, EventArgs e) => SwitchModes(ETransferMode.Withdraw, (Color.FromArgb(200, 50, 50), withdrawButton), (Color.White, depositButton), "Widthdraw", Color.White);
     private void depositButton_Click(object sender, EventArgs e) => SwitchModes(ETransferMode.Deposit, (Color.FromArgb(50, 150, 50), depositButton), (Color.White, withdrawButton), "Deposit", Color.Black);
 
     private void SwitchModes(ETransferMode transferMode, (Color color, Button button) selected, (Color foreColor, Button button) deselected, string text, Color foreColor) =>
@@ -29,7 +52,17 @@ public partial class AccountPage : UserControl
             if (transferMode == ETransferMode.Deposit)
                  bankAccountControl.Deposit(amount);
             else bankAccountControl.TryWithdraw(amount);
+
+            CreateTransationControl(bankAccountControl.Transactions.Last());
+            balanceLabel.Text = ThemePalette.FormatMoney(bankAccountControl.Balance);
         }
         else MessageBox.Show("Must enter a number.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+
+    private void returnButton_Click(object sender, EventArgs e)
+    {
+        ((MainForm)ParentForm).SwitchPages(false);
+        ParentForm.Controls.Remove(this);
+        Dispose();
     }
 }

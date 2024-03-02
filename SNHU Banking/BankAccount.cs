@@ -5,9 +5,11 @@
 // Refresh visual display of account balance
 public class BankAccount(string name, decimal balance, AccountCategoryControl accountCategoryControl)
 {
-    public string Name                  { get; private set; } = name;
-    public decimal YTD                  { get; private set; }
-    public decimal Balance              { get; private set; } = balance;
+    public string Name     { get; private set; } = name;
+    public decimal YTD     { get; private set; }
+    public decimal Balance { get; private set; } = balance;
+    public decimal Yield   { get; private set; }
+
     public AccountCategoryControl Owner { get; private set; } = accountCategoryControl;
 
     private BankAccountControl _bankAccountControl;
@@ -20,9 +22,9 @@ public class BankAccount(string name, decimal balance, AccountCategoryControl ac
     public EAccountCategory Category => Owner.Category;
 
     public static BankAccount GetBankAccount(string name) => accountNames[name];
-
     private static readonly Dictionary<string, BankAccount> accountNames = [];
-    private decimal yield;
+
+    public readonly List<Transaction> Transactions = [];
 
     public static BankAccount? CreateAccount(string name, decimal balance, AccountCategoryControl accountCategoryControl)
     {
@@ -41,12 +43,13 @@ public class BankAccount(string name, decimal balance, AccountCategoryControl ac
             return false;
         }
         Balance -= amount;
+        Transactions.Add(new(MainForm.CurrentDate, $"{Name} Withdrawal", -amount, Balance));
         return true;
 
     }
     public void Deposit(decimal amount)
     {
-        // if (ChildSupportDue) { Close(); }
+        Transactions.Add(new(MainForm.CurrentDate, $"{Name} Deposit", amount, Balance));
         Balance += amount;
     }
 }

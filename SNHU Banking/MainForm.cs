@@ -4,11 +4,15 @@ public partial class MainForm : Form
 {
     private readonly int transferPanelStartHeight;
 
+    private static readonly Random rand  = new();
+    private static DateTime _currentDate = DateTime.Today;
+    public  static DateTime CurrentDate  => _currentDate = _currentDate.AddDays(rand.Next(11));
+
     public MainForm()
     {
         InitializeComponent();
         WindowState = FormWindowState.Maximized;
-        BackColor = ThemePalette.FormBackColor;
+        BackColor   = ThemePalette.FormBackColor;
         DarkStylizer.UseDarkMode(Handle, true);
 
         accountsPanel.Controls
@@ -26,12 +30,16 @@ public partial class MainForm : Form
         transferPanelStartHeight          = transferPanel.Height = 232;
     }
 
-    public void SwitchPages(bool showAccounView)
+    public void SwitchPages(bool showAccounView, BankAccountControl? bac = null)
     {
         accountsPanel.Visible = pieChartPanel.Visible = transferPanel.Visible = bankAccountsLabel.Visible = !showAccounView;
 
-        AccountPage accountPage = new();
-        accountPage.Location = new Point(Width / 2 - accountPage.Width / 2, 0);
+        if (!showAccounView || bac == null)
+            return;
+       
+        AccountPage accountPage = new(bac);
+        accountPage.Location    = new Point(Width / 2 - accountPage.Width / 2, 0);
+
         Controls.Add(accountPage);
     }
 

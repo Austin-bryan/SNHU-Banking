@@ -4,7 +4,10 @@ public partial class BankAccountControl : UserControl
 {
     public decimal YTD     => bankAccount.YTD;
     public decimal Balance => bankAccount.Balance;
+    public decimal Yield   => bankAccount.Yield;
 
+    public EAccountCategory Category => bankAccount.Category;
+    public IReadOnlyList<Transaction> Transactions => bankAccount.Transactions;
     private readonly BankAccount bankAccount;
 
     public BankAccountControl(BankAccount account)
@@ -24,5 +27,5 @@ public partial class BankAccountControl : UserControl
     public void Deposit(decimal amount)     => bankAccount.Deposit(amount);
     public bool TryWithdraw(decimal amount) => bankAccount.TryWithdraw(amount);
 
-    private void nameLabel_Click(object sender, EventArgs e) => (ParentForm as MainForm).SwitchPages(true);
+    private void nameLabel_Click(object sender, EventArgs e) => (ParentForm as MainForm).SwitchPages(true, this);
 }
