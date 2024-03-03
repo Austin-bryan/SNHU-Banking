@@ -1,8 +1,7 @@
 ﻿namespace SNHU_Banking;
 
-// TODO: delete debug message boxes
-// Prevent user from enter non digits in submit transfer TB (Look at textbox from new account form)
-// Refresh visual display of account balance
+// TODO: 
+// Refresh visual display of account balance totals
 public class BankAccount(string name, decimal balance, AccountCategoryControl accountCategoryControl)
 {
     public string Name { get; private set; } = name;
@@ -25,7 +24,6 @@ public class BankAccount(string name, decimal balance, AccountCategoryControl ac
 
     public static BankAccount GetBankAccount(string name)
     {
-        accountNames.Keys.ToList().ForEach(a => MessageBox.Show("---" + a + ", " + name)) ;
         return accountNames[name];
     }
 
@@ -49,6 +47,7 @@ public class BankAccount(string name, decimal balance, AccountCategoryControl ac
             return false;
         }
         Balance -= amount;
+        
         return true;
 
     }

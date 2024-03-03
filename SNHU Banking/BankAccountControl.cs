@@ -23,5 +23,5 @@ public partial class BankAccountControl : UserControl
     {
         balanceLabel.Text = string.Format("${0:#,##0.00}", bankAccount.Balance);
     }
-    // TODO: update display
+    // TODO: update totals
 }

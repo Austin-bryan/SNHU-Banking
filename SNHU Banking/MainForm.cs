@@ -3,6 +3,7 @@ namespace SNHU_Banking;
 public partial class MainForm : Form
 {
     private readonly int transferPanelStartHeight;
+    private AccountCategoryControl accountCategoryControl;
 
     public MainForm()
     {
@@ -84,14 +85,17 @@ public partial class MainForm : Form
 
         if (decimal.TryParse(transferTB.Text, out decimal transferAmount))
         {
-            BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);      
-         
+            BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);
+
             BankAccount toAccount = BankAccount.GetBankAccount(toAccountBox.Text);
 
             // Change balances
             if (fromAccount.TryWithdraw(transferAmount))
             {
                 toAccount.Deposit(transferAmount);
+                toAccount.BankAccountControl.UpdateBalance();
+                fromAccount.BankAccountControl.UpdateBalance();
+                accountCategoryControl.UpdateTotals();
                 //TODO: toAccount.BankAccountControl.UpdateDisplay();
                 //TODO: fromAccount.BankAccountControl.UpdateDisplay();
             }
@@ -110,6 +114,16 @@ public partial class MainForm : Form
         {
             e.SuppressKeyPress = true;
             submitTransferButton.PerformClick();
-        }    
+        }
+    }
+
+    private void transferTB_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (!char.IsNumber(e.KeyChar) && e.KeyChar != '.' && !char.IsControl(e.KeyChar))    // Surpress key if not number, but allow decimal
+            e.Handled = true;
+        else if (e.KeyChar == '.' && ((TextBox)sender).Text.Contains('.'))                  // Suppress key press if a decimal point is already present
+            e.Handled = true;
+        else if (e.KeyChar == '.' && ((TextBox)sender).Text.Length == 0)                    // Surpress key if first character is decimal
+            e.Handled = true;
     }
 }
