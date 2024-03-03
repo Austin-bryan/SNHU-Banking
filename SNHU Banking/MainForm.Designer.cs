@@ -62,7 +62,7 @@
             bankAccountsLabel.AutoSize = true;
             bankAccountsLabel.Font = new Font("Segoe UI", 20F);
             bankAccountsLabel.ForeColor = SystemColors.ButtonFace;
-            bankAccountsLabel.Location = new Point(26, 2);
+            bankAccountsLabel.Location = new Point(23, 2);
             bankAccountsLabel.Name = "bankAccountsLabel";
             bankAccountsLabel.Size = new Size(188, 37);
             bankAccountsLabel.TabIndex = 3;
@@ -75,7 +75,8 @@
             accountsPanel.Controls.Add(accountCategoryControl1);
             accountsPanel.Controls.Add(accountCategoryControl2);
             accountsPanel.Controls.Add(accountCategoryControl3);
-            accountsPanel.Location = new Point(23, 39);
+            accountsPanel.Location = new Point(20, 29);
+            accountsPanel.Margin = new Padding(3, 2, 3, 2);
             accountsPanel.Name = "accountsPanel";
             accountsPanel.Size = new Size(1417, 896);
             accountsPanel.TabIndex = 4;
@@ -123,7 +124,8 @@
             transferPanel.Controls.Add(label6);
             transferPanel.Controls.Add(label7);
             transferPanel.Controls.Add(label8);
-            transferPanel.Location = new Point(1446, 579);
+            transferPanel.Location = new Point(1443, 576);
+            transferPanel.Margin = new Padding(3, 2, 3, 2);
             transferPanel.Name = "transferPanel";
             transferPanel.Size = new Size(450, 349);
             transferPanel.TabIndex = 4;
@@ -197,6 +199,7 @@
             // 
             toAccountBox.DefaultItem = "      Select an Account";
             toAccountBox.Location = new Point(13, 163);
+            toAccountBox.Margin = new Padding(3, 4, 3, 4);
             toAccountBox.Name = "toAccountBox";
             toAccountBox.Size = new Size(417, 53);
             toAccountBox.TabIndex = 10;
@@ -205,6 +208,7 @@
             // 
             fromAccountBox.DefaultItem = "      Select an Account";
             fromAccountBox.Location = new Point(13, 78);
+            fromAccountBox.Margin = new Padding(3, 4, 3, 4);
             fromAccountBox.Name = "fromAccountBox";
             fromAccountBox.Size = new Size(417, 53);
             fromAccountBox.TabIndex = 9;
@@ -251,15 +255,16 @@
             pieChartPanel.Controls.Add(label4);
             pieChartPanel.Controls.Add(label3);
             pieChartPanel.Controls.Add(label2);
-            pieChartPanel.Location = new Point(1446, 39);
-            pieChartPanel.Margin = new Padding(3, 3, 3, 10);
+            pieChartPanel.Location = new Point(1443, 29);
+            pieChartPanel.Margin = new Padding(3, 2, 3, 8);
             pieChartPanel.Name = "pieChartPanel";
-            pieChartPanel.Size = new Size(450, 527);
+            pieChartPanel.Size = new Size(450, 526);
             pieChartPanel.TabIndex = 3;
             // 
             // pieChart
             // 
-            pieChart.Location = new Point(88, 42);
+            pieChart.Location = new Point(88, 43);
+            pieChart.Margin = new Padding(3, 4, 3, 4);
             pieChart.Name = "pieChart";
             pieChart.Size = new Size(280, 280);
             pieChart.TabIndex = 9;
@@ -320,11 +325,12 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1643, 1061);
+            ClientSize = new Size(1924, 929);
             Controls.Add(pieChartPanel);
             Controls.Add(accountsPanel);
             Controls.Add(bankAccountsLabel);
             Controls.Add(transferPanel);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "MainForm";
             Text = "Form1";
             Load += MainForm_Load;

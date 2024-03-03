@@ -3,6 +3,7 @@ namespace SNHU_Banking;
 public partial class MainForm : Form
 {
     private readonly int transferPanelStartHeight;
+    private AccountCategoryControl accountCategoryControl;
 
     private static readonly Random rand  = new();
     private static DateTime _currentDate = DateTime.Today;
@@ -77,10 +78,13 @@ public partial class MainForm : Form
             BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);
             BankAccount toAccount = BankAccount.GetBankAccount(toAccountBox.Text);
 
-            // Change balances
             if (fromAccount.TryWithdraw(transferAmount))
+            {
                 toAccount.Deposit(transferAmount);
-            //TODO: toAccount.BankAccountControl.UpdateDisplay();
+                toAccount.BankAccountControl.UpdateBalance();
+                fromAccount.BankAccountControl.UpdateBalance();
+
+            }
         }
         else MessageBox.Show("Must enter a number.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
