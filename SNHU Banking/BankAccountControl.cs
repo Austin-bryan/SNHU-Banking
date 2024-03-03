@@ -14,10 +14,10 @@ public partial class BankAccountControl : UserControl
     {
         InitializeComponent();
 
-        bankAccount        = account;
-        nameLabel.Text     = account.Name;
-        ytdLabel.Text      = "$0";
-        interestLabel.Text = "0.25%";
+        bankAccount     = account;
+        nameLabel.Text  = account.Name;
+        ytdLabel.Text   = "$0";
+        yieldLabel.Text = account.Yield + "%";
 
         bankAccount.BankAccountControl = this;
         UpdateBalance();

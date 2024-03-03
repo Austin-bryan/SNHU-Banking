@@ -29,7 +29,7 @@ partial class BankAccountControl
     private void InitializeComponent()
     {
         tableLayoutPanel1 = new TableLayoutPanel();
-        interestLabel = new Label();
+        yieldLabel = new Label();
         ytdLabel = new Label();
         balanceLabel = new Label();
         nameLabel = new Label();
@@ -44,7 +44,7 @@ partial class BankAccountControl
         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.9266338F));
         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21.9648228F));
         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21.9648228F));
-        tableLayoutPanel1.Controls.Add(interestLabel, 3, 0);
+        tableLayoutPanel1.Controls.Add(yieldLabel, 3, 0);
         tableLayoutPanel1.Controls.Add(ytdLabel, 2, 0);
         tableLayoutPanel1.Controls.Add(balanceLabel, 1, 0);
         tableLayoutPanel1.Controls.Add(nameLabel, 0, 0);
@@ -55,17 +55,17 @@ partial class BankAccountControl
         tableLayoutPanel1.Size = new Size(1344, 14);
         tableLayoutPanel1.TabIndex = 7;
         // 
-        // interestLabel
+        // yieldLabel
         // 
-        interestLabel.AutoSize = true;
-        interestLabel.BackColor = Color.FromArgb(50, 50, 50);
-        interestLabel.Font = new Font("Segoe UI", 9F);
-        interestLabel.ForeColor = SystemColors.ButtonFace;
-        interestLabel.Location = new Point(1051, 0);
-        interestLabel.Name = "interestLabel";
-        interestLabel.Size = new Size(38, 14);
-        interestLabel.TabIndex = 5;
-        interestLabel.Text = "0.72%";
+        yieldLabel.AutoSize = true;
+        yieldLabel.BackColor = Color.FromArgb(50, 50, 50);
+        yieldLabel.Font = new Font("Segoe UI", 9F);
+        yieldLabel.ForeColor = SystemColors.ButtonFace;
+        yieldLabel.Location = new Point(1051, 0);
+        yieldLabel.Name = "yieldLabel";
+        yieldLabel.Size = new Size(38, 14);
+        yieldLabel.TabIndex = 5;
+        yieldLabel.Text = "0.72%";
         // 
         // ytdLabel
         // 
@@ -123,7 +123,7 @@ partial class BankAccountControl
 
     #endregion
     private TableLayoutPanel tableLayoutPanel1;
-    private Label interestLabel;
+    private Label yieldLabel;
     private Label ytdLabel;
     private Label balanceLabel;
     private Label nameLabel;

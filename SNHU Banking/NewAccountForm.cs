@@ -86,7 +86,15 @@ public partial class NewAccountForm : Form
     
     private void submitButton_Click(object sender, EventArgs e)
     {
-        BankAccount? account = BankAccount.CreateAccount(nameTextBox.Text, decimal.Parse(BalanceText), accountCategoryControl);
+        decimal yield = accountCategoryControl.Category switch
+        {
+            EAccountCategory.Checking => 0.5m,
+            EAccountCategory.Savings  => 3.5m,
+            EAccountCategory.CDs      => 4.5m,
+            _                         => throw new ArgumentException()
+        };
+
+        BankAccount? account = BankAccount.CreateAccount(nameTextBox.Text, decimal.Parse(BalanceText), accountCategoryControl, yield);
 
         if (account == null)
         {

@@ -3,12 +3,12 @@
 // TODO: delete debug message boxes
 // Prevent user from enter non digits in submit transfer TB (Look at textbox from new account form)
 // Refresh visual display of account balance
-public class BankAccount(string name, decimal balance, AccountCategoryControl accountCategoryControl)
+public class BankAccount(string name, decimal balance, AccountCategoryControl accountCategoryControl, decimal yield)
 {
     public string Name     { get; private set; } = name;
     public decimal YTD     { get; private set; }
     public decimal Balance { get; private set; } = balance;
-    public decimal Yield   { get; private set; }
+    public decimal Yield   { get; private set; } = yield;
 
     public AccountCategoryControl Owner { get; private set; } = accountCategoryControl;
 
@@ -26,11 +26,11 @@ public class BankAccount(string name, decimal balance, AccountCategoryControl ac
 
     public readonly List<Transaction> Transactions = [];
 
-    public static BankAccount? CreateAccount(string name, decimal balance, AccountCategoryControl accountCategoryControl)
+    public static BankAccount? CreateAccount(string name, decimal balance, AccountCategoryControl accountCategoryControl, decimal yield)
     {
         if (accountNames.ContainsKey(name)) 
             return null;
-        BankAccount bankAccount = new(name, balance, accountCategoryControl);
+        BankAccount bankAccount = new(name, balance, accountCategoryControl, yield);
         accountNames.Add(name, bankAccount);
         return bankAccount;
     }
