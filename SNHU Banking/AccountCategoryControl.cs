@@ -59,7 +59,7 @@ public partial class AccountCategoryControl : UserControl
         Height += shiftAmount;
         UpdateTotals();
     }
-    public void UpdateTotals()
+    private void UpdateTotals()
     {
         Total = 0;
         decimal ytd = 0;

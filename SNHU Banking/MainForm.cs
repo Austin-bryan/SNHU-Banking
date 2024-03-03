@@ -95,7 +95,7 @@ public partial class MainForm : Form
                 toAccount.Deposit(transferAmount);
                 toAccount.BankAccountControl.UpdateBalance();
                 fromAccount.BankAccountControl.UpdateBalance();
-                accountCategoryControl.UpdateTotals();
+                ;
                 //TODO: toAccount.BankAccountControl.UpdateDisplay();
                 //TODO: fromAccount.BankAccountControl.UpdateDisplay();
             }
