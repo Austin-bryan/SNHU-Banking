@@ -1,11 +1,16 @@
-﻿using System;
+﻿namespace SNHU_Banking;
 
-namespace SNHU_Banking;
-
+// Purpose: This class is a multilayered drop down menu. I didn't like the built in drop down menu and to improve the asthetics and add categories. 
+// The name isn't good. I used a layered combox, but it should be layered drop down menu, but if I change it now it'll make the variable
+// names inconsistent, and I'd rather be consistent. Had a more time, I'd fix this.
 public partial class LayeredComboBox : UserControl
 {
+    // I use padding to put the text off center for asthetics. I have to always trim that to get the raw text
     public override string Text => mainButton.Text.TrimStart(' ');
     public bool IsDefaultOption => Text == DefaultItem.TrimStart(' ');
+
+    // Items are what each clickable button in the drop down menu is.
+    // The default option is the one that shows before something is selected
     public string DefaultItem
     {
         get => _defaultItem;
@@ -19,8 +24,11 @@ public partial class LayeredComboBox : UserControl
     public delegate void SelectionChangeHandler(int newIndex, int? newCategoryIndex);
     public event SelectionChangeHandler OnSelectionChange;
 
-    private const string padding = "      ";
-    private readonly Dictionary<int, int> categoryIndexToItemIndex = [];
+    private const string padding = "      ";    // Used to offset the text
+
+    // Categories are indexed 0, 1, 2, the values from (int)EAccountCategory, however I also need to know the index
+    // of where they are stored in the listbox. This handles that mapping. 
+    private readonly Dictionary<int, int> categoryIndexToItemIndex = [];   
     private string _defaultItem = padding + "Pick an Item";
     private int hoveredIndex;
 
@@ -33,14 +41,50 @@ public partial class LayeredComboBox : UserControl
         listBox.DrawMode = DrawMode.OwnerDrawFixed;
     }
 
+    // Adds a category Item. Categories can't be selected, have no hover events, but have children that can be clicked on
     public void AddCategory(string text)
     {
-        var llbi      = new LayeredListBoxItem(text, true, categoryIndexToItemIndex.Values.Count);
+        var llbi      = new LayeredListBoxItem(text, isCategory: true, categoryIndex: categoryIndexToItemIndex.Values.Count);
         int itemIndex = listBox.Items.Add(llbi);
         
         categoryIndexToItemIndex.Add(itemIndex, llbi.CategoryIndex ?? 0);
         AdjustHeight();
     }
+    // Items are selectable, hoverable and are children of categories. 
+    // I coded this to allow an item not belong to a category, but the two places I use this, I use categories
+    public void AddItem(string text, int? categoryIndex = null)
+    {
+        LayeredListBoxItem item;
+
+        if (categoryIndex != null)
+        {
+            int categoryInsertIndex;
+
+            // This inserts the new item right before the next category, the bottom of the category it belongs in
+            if (categoryIndexToItemIndex.ContainsKey(categoryIndex.Value + 1))
+            {
+                categoryInsertIndex = categoryIndexToItemIndex[categoryIndex.Value + 1];
+
+                // Since all categories are now pushed up, I need to increment the map to make the mapping up to date
+                categoryIndexToItemIndex.Keys
+                    .Where(k => k > categoryIndex)
+                    .ToList()
+                    .ForEach(k => categoryIndexToItemIndex[k]++);
+            }
+            // If the item is in the last category, insert at the back
+            else categoryInsertIndex = listBox.Items.Count;
+
+            item = new LayeredListBoxItem(padding + text, false, categoryIndex);
+            listBox.Items.Insert(categoryInsertIndex, item);
+        }
+        else // This isn't actually used, because all instances have categories
+        {
+            item = new LayeredListBoxItem(text);
+            listBox.Items.Add(item);
+        }
+        AdjustHeight();
+    }
+    // Given an index, this will select and fire the selection event
     public void SelectItem(int index)
     {
         foreach (var categoryIndex in categoryIndexToItemIndex.Values)
@@ -58,35 +102,6 @@ public partial class LayeredComboBox : UserControl
         sideBar.BackColor    = Color.FromArgb(255, (int)(backColor.R * 0.666), (int)(backColor.G * 0.666), (int)(backColor.B * 0.666));
         mainButton.ForeColor = foreColor;
     }
-    public void AddItem(string text, int? categoryIndex = null)
-    {
-        LayeredListBoxItem item;
-
-        if (categoryIndex != null)
-        {
-            int categoryInsertIndex;
-
-            if (categoryIndexToItemIndex.ContainsKey(categoryIndex.Value + 1))
-            {
-                categoryInsertIndex = categoryIndexToItemIndex[categoryIndex.Value + 1];
-
-                categoryIndexToItemIndex.Keys
-                    .Where(k => k > categoryIndex)
-                    .ToList()
-                    .ForEach(k => categoryIndexToItemIndex[k]++);
-            }
-            else categoryInsertIndex = listBox.Items.Count;
-
-            item = new LayeredListBoxItem(padding + text, false, categoryIndex);
-            listBox.Items.Insert(categoryInsertIndex, item);
-        }
-        else
-        {
-            item = new LayeredListBoxItem(text);
-            listBox.Items.Add(item);
-        }
-        AdjustHeight();
-    }
     
     protected override void OnLoad(EventArgs e)
     {
@@ -101,6 +116,7 @@ public partial class LayeredComboBox : UserControl
     }
     private void mainButton_Paint (object sender, PaintEventArgs e)
     {
+        // Here, I apply what I learn from my drawing program to draw the downward arrow in the menu
         (mainButton.Width, mainButton.Height, listBox.Width) = (Width, Height, Width - 4);
 
         const int thickness = 4;
@@ -158,6 +174,7 @@ public partial class LayeredComboBox : UserControl
         if (e.Index < 0 || e.Index >= listBox.Items.Count)
             return;
 
+        // Draws the item, setting the color if its hovered or not.
         var item        = (LayeredListBoxItem)listBox.Items[e.Index];
         var fontStyle   = item.IsCategory ? FontStyle.Bold : FontStyle.Regular;
         var font        = new Font(e.Font.FontFamily, 9, fontStyle);
@@ -176,12 +193,12 @@ public partial class LayeredComboBox : UserControl
     }
     private void listBox_MouseDown(object sender, MouseEventArgs e)
     {
-        if (hoveredIndex == -1) 
+        if (hoveredIndex == -1)     // If the user clicks on the listbox, but not on any item, return
             return;
-        if (categoryIndexToItemIndex.ContainsValue(hoveredIndex))
+        if (categoryIndexToItemIndex.ContainsValue(hoveredIndex))   // Dont click on categories
             return;
+        // Select the item
         mainButton.Text = listBox.Items[hoveredIndex].ToString();
-
         OnSelectionChange?.Invoke(hoveredIndex, (listBox.Items[hoveredIndex] as LayeredListBoxItem).CategoryIndex);
     }
     private void LayeredComboBox_Leave(object sender, EventArgs e) => listBox.Visible = false;

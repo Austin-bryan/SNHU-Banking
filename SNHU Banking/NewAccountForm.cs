@@ -2,6 +2,7 @@
 
 namespace SNHU_Banking;
 
+// Purpose: Allows the user to create a new account
 public partial class NewAccountForm : Form
 {
     private AccountCategoryControl accountCategoryControl;
@@ -24,6 +25,7 @@ public partial class NewAccountForm : Form
         coloredControls = [submitButton, sideBackground, accountLabel, nameLabel, startBalanceLabel];
         UpdateAppearence();
 
+        // Populate drop down menu
         accountTypeBox.AddCategory("Banking");
         accountTypeBox.AddCategory("Investments");
 
@@ -36,6 +38,7 @@ public partial class NewAccountForm : Form
 
     public void UpdateAppearence()
     {
+        // Updates the form appearence as they change the category
         var (fore, back) = ThemePalette.GetAccountTheme(GetAccountCategory().category);
 
         coloredControls.ForEach(c => { c.ForeColor = fore; c.BackColor = back; });
@@ -86,6 +89,7 @@ public partial class NewAccountForm : Form
 
     private void submitButton_Click(object sender, EventArgs e)
     {
+        // Set yield for each account
         decimal yield = accountCategoryControl.Category switch
         {
             EAccountCategory.Checking => 0.5m,
@@ -109,6 +113,7 @@ public partial class NewAccountForm : Form
     }
     private void accountTypeBox_OnSelectionChange(int newIndex, int? newCategoryIndex)
     {
+        // Creates a mapping from index to category index.
         int adjustedIndex = newIndex switch
         {
             1 => 0,
@@ -117,6 +122,7 @@ public partial class NewAccountForm : Form
             _ => throw new ArgumentException("Invalid index")
         };
 
+        // Apply changes of new category selection
         accountCategoryControl = (Owner as MainForm)
             .GetAccountCategoryControls()
             .Where(c => c.Category == (EAccountCategory)adjustedIndex)

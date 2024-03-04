@@ -6,15 +6,16 @@ public partial class MainForm : Form
 
     private static readonly Random rand  = new();
     private static DateTime _currentDate = DateTime.Today;
-    public  static DateTime CurrentDate  => _currentDate = _currentDate.AddDays(rand.Next(11));
+    public  static DateTime CurrentDate  => _currentDate = _currentDate.AddDays(rand.Next(11)); // Randomly increase date with every read of the variable
 
     public MainForm()
     {
         InitializeComponent();
         WindowState = FormWindowState.Maximized;
         BackColor   = ThemePalette.FormBackColor;
-        DarkStylizer.UseDarkMode(Handle, true);
+        DarkStylizer.UseDarkMode(Handle, true); // Make a dark titlebar
 
+        // Add Category Controls
         accountsPanel.Controls
             .ToList()
             .OfType<AccountCategoryControl>()
@@ -31,6 +32,7 @@ public partial class MainForm : Form
 
     public void SwitchPages(bool showAccounView, BankAccountControl? bac = null)
     {
+        // Hides the first page
         accountsPanel.Visible = pieChartPanel.Visible = transferPanel.Visible = bankAccountsLabel.Visible = !showAccounView;
 
         if (!showAccounView || bac == null)
@@ -60,6 +62,7 @@ public partial class MainForm : Form
         (transferPanelStartHeight + heightDelta, errorVisible, submitTransferVisible);
     private void MainForm_Load(object sender, EventArgs e)
     {
+        // Populates the transfer buttons
         // The user isn't able to transfer from CDs because they are locked up for a time frame, but they are able to transfer to CDs
         fromAccountBox.AddCategory("Checking");
         fromAccountBox.AddCategory("Savings");
@@ -71,6 +74,7 @@ public partial class MainForm : Form
 
     private void submitTransferButton_Click(object sender, EventArgs e)
     {
+        // Ensure a valid number is being transfer
         if (!decimal.TryParse(transferTB.Text, out decimal transferAmount))
         {
             MessageBox.Show("Must enter a number.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -79,9 +83,11 @@ public partial class MainForm : Form
         BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);
         BankAccount toAccount = BankAccount.GetBankAccount(toAccountBox.Text);
 
+        // Transfer couldnt be processed
         if (!fromAccount.TryWithdraw(transferAmount))
             return;
         
+        // Process transfer
         toAccount.Deposit(transferAmount);
         toAccount.BankAccountControl.UpdateBalance();
         fromAccount.BankAccountControl.UpdateBalance();
@@ -92,7 +98,7 @@ public partial class MainForm : Form
         if (e.KeyCode == Keys.Enter)
         {
             e.SuppressKeyPress = true;
-            submitTransferButton.PerformClick();
+            submitTransferButton.PerformClick();    // Allows the user to hit enter and submit the transfer
         }
     }
 
@@ -100,6 +106,7 @@ public partial class MainForm : Form
     private void FromAccountBox_OnSelectionChange(int newIndex, int? categoryIndex) => OnAccountSelected(fromAccountBox, categoryIndex.Value);
     private void OnAccountSelected(LayeredComboBox lcb, int categoryIndex)
     {
+        // SHows the colors of the account categories
         lcb.SetColor(ThemePalette.GetAccountTheme((EAccountCategory)categoryIndex));
 
         if (toAccountBox.IsDefaultOption || fromAccountBox.IsDefaultOption)
@@ -110,6 +117,7 @@ public partial class MainForm : Form
     }
     private void Account_OnBalanceChange(decimal balance, decimal ytd)
     {
+        // Update pie chart totals
         decimal total = 0;
 
         accountsPanel.Controls
@@ -125,6 +133,7 @@ public partial class MainForm : Form
 
     public void UpdateAccounts()
     {
+        // Make sure accounts are always up to date
         accountsPanel.Controls
             .ToList()
             .OfType<AccountCategoryControl>()

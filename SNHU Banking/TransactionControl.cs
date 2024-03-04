@@ -1,7 +1,7 @@
 ﻿namespace SNHU_Banking;
 
-public record Transaction(DateTime Date, string Description, decimal Amount, decimal NewBalance);
-
+// Purpose: Shows the transactions in real time as the suer makes them. 
+// It depends on a transaction record that holds the data for this class
 public partial class TransactionControl : UserControl
 {
     public TransactionControl(Transaction transaction)
@@ -17,3 +17,6 @@ public partial class TransactionControl : UserControl
                                    : (      amountLabel.Text, Color.FromArgb(200, 40, 40)); 
     }
 }
+
+// The POD record for the transction Control;
+public record Transaction(DateTime Date, string Description, decimal Amount, decimal NewBalance);

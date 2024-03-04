@@ -2,6 +2,8 @@
 
 namespace SNHU_Banking;
 
+// This was originally here to use for UI to make it easy to customize themes, but I was inconsistent in using it.
+// If I had more time, I would have used this more consistently. 
 public static class ThemePalette
 {
     public static readonly Color FormBackColor    = Color.FromArgb(255, 30, 30, 30);

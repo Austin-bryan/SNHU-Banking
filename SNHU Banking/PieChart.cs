@@ -1,6 +1,7 @@
 ﻿using static SNHU_Banking.ThemePalette;
 namespace SNHU_Banking;
 
+// Purpose: Shows a pie chart of the account balances
 public partial class PieChart : UserControl
 {
     private readonly List<AccountCategoryControl> accountCategoryControls = [];
