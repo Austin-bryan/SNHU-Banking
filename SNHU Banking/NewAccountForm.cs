@@ -21,7 +21,7 @@ public partial class NewAccountForm : Form
         InitializeComponent();
         DarkStylizer.UseDarkMode(Handle, true);
 
-        coloredControls = [submitButton,sideBackground, accountLabel, nameLabel,startBalanceLabel];
+        coloredControls = [submitButton, sideBackground, accountLabel, nameLabel, startBalanceLabel];
         UpdateAppearence();
 
         accountTypeBox.AddCategory("Banking");
@@ -45,7 +45,7 @@ public partial class NewAccountForm : Form
         {
             submitButton.BackColor = Color.FromArgb(60, 60, 60);
             submitButton.ForeColor = Color.Black;
-            submitButton.Enabled   = false;
+            submitButton.Enabled = false;
         }
         else submitButton.Enabled = true;
     }
@@ -64,18 +64,18 @@ public partial class NewAccountForm : Form
         "CDs"      => (EAccountCategory.CDs,      "Certificate of Deposit"),
         _          => (EAccountCategory.Checking, "Default"),
     };
-    
-    private void nameTextBox_KeyPress    (object sender, KeyPressEventArgs e)
+
+    private void nameTextBox_KeyPress(object sender, KeyPressEventArgs e)
     {
         if (e.KeyChar == ' ' && nameTextBox.Text != "")                     // Allow a space if the text box isnt empty
             return;
         namedHasChanged = true;
     }
-    private void nameTextBox_TextChanged (object sender, EventArgs e) => UpdateAppearence();
-    
-    private void balanceTextBox_Leave    (object sender, EventArgs e) => BalanceText = ThemePalette.OnMoneyTextbox_Leave(BalanceText);
-    private void balanceTextBox_KeyPress (object sender, KeyPressEventArgs e) => ThemePalette.OnMoneyTextBox_KeyPress(sender, e);
-    private void balanceTextBox_KeyDown  (object sender, KeyEventArgs e)
+    private void nameTextBox_TextChanged(object sender, EventArgs e) => UpdateAppearence();
+
+    private void balanceTextBox_Leave(object sender, EventArgs e)            => BalanceText = ThemePalette.OnMoneyTextbox_Leave(BalanceText);
+    private void balanceTextBox_KeyPress(object sender, KeyPressEventArgs e) => ThemePalette.OnMoneyTextBox_KeyPress(sender, e);
+    private void balanceTextBox_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.Enter)
         {
@@ -83,7 +83,7 @@ public partial class NewAccountForm : Form
             submitButton.PerformClick();
         }
     }
-    
+
     private void submitButton_Click(object sender, EventArgs e)
     {
         decimal yield = accountCategoryControl.Category switch
@@ -103,7 +103,7 @@ public partial class NewAccountForm : Form
         }
 
         accountCategoryControl.AddAccount(account);
-        
+
         (Owner as MainForm).AddAccount(account);
         Close();
     }
@@ -116,7 +116,7 @@ public partial class NewAccountForm : Form
             4 => 2,
             _ => throw new ArgumentException("Invalid index")
         };
-        
+
         accountCategoryControl = (Owner as MainForm)
             .GetAccountCategoryControls()
             .Where(c => c.Category == (EAccountCategory)adjustedIndex)
@@ -124,6 +124,7 @@ public partial class NewAccountForm : Form
 
         UpdateAppearence();
         UpdateNameText();
-        
     }
+
+    private void NewAccountForm_FormClosing(object sender, FormClosingEventArgs e) => AccountCategoryControl.AccountFormOpen = false;
 }

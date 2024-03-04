@@ -30,9 +30,9 @@
         {
             bankAccountsLabel = new Label();
             accountsPanel = new FlowLayoutPanel();
-            accountCategoryControl1 = new AccountCategoryControl();
-            accountCategoryControl2 = new AccountCategoryControl();
-            accountCategoryControl3 = new AccountCategoryControl();
+            checkingControl = new AccountCategoryControl();
+            savingsControl = new AccountCategoryControl();
+            cdControl = new AccountCategoryControl();
             transferPanel = new Panel();
             submitTransferPanel = new Panel();
             submitTransferButton = new Button();
@@ -60,11 +60,11 @@
             // bankAccountsLabel
             // 
             bankAccountsLabel.AutoSize = true;
-            bankAccountsLabel.Font = new Font("Segoe UI", 20F);
+            bankAccountsLabel.Font = new Font("Segoe UI", 15F);
             bankAccountsLabel.ForeColor = SystemColors.ButtonFace;
-            bankAccountsLabel.Location = new Point(23, 2);
+            bankAccountsLabel.Location = new Point(3, 0);
             bankAccountsLabel.Name = "bankAccountsLabel";
-            bankAccountsLabel.Size = new Size(188, 37);
+            bankAccountsLabel.Size = new Size(139, 28);
             bankAccountsLabel.TabIndex = 3;
             bankAccountsLabel.Text = "Bank Accounts";
             // 
@@ -72,47 +72,48 @@
             // 
             accountsPanel.AutoScroll = true;
             accountsPanel.BackColor = Color.FromArgb(30, 30, 30);
-            accountsPanel.Controls.Add(accountCategoryControl1);
-            accountsPanel.Controls.Add(accountCategoryControl2);
-            accountsPanel.Controls.Add(accountCategoryControl3);
-            accountsPanel.Location = new Point(20, 29);
+            accountsPanel.Controls.Add(bankAccountsLabel);
+            accountsPanel.Controls.Add(checkingControl);
+            accountsPanel.Controls.Add(savingsControl);
+            accountsPanel.Controls.Add(cdControl);
+            accountsPanel.Location = new Point(12, 11);
             accountsPanel.Margin = new Padding(3, 2, 3, 2);
             accountsPanel.Name = "accountsPanel";
             accountsPanel.Size = new Size(1417, 896);
             accountsPanel.TabIndex = 4;
             // 
-            // accountCategoryControl1
+            // checkingControl
             // 
-            accountCategoryControl1.BackColor = Color.FromArgb(75, 110, 255);
-            accountCategoryControl1.Category = EAccountCategory.Checking;
-            accountCategoryControl1.Location = new Point(3, 3);
-            accountCategoryControl1.MainForm = null;
-            accountCategoryControl1.Margin = new Padding(3, 3, 3, 10);
-            accountCategoryControl1.Name = "accountCategoryControl1";
-            accountCategoryControl1.Size = new Size(1399, 108);
-            accountCategoryControl1.TabIndex = 0;
+            checkingControl.BackColor = Color.FromArgb(75, 110, 255);
+            checkingControl.Category = EAccountCategory.Checking;
+            checkingControl.Location = new Point(3, 31);
+            checkingControl.MainForm = null;
+            checkingControl.Margin = new Padding(3, 3, 3, 10);
+            checkingControl.Name = "checkingControl";
+            checkingControl.Size = new Size(1399, 108);
+            checkingControl.TabIndex = 0;
             // 
-            // accountCategoryControl2
+            // savingsControl
             // 
-            accountCategoryControl2.BackColor = Color.FromArgb(40, 240, 40);
-            accountCategoryControl2.Category = EAccountCategory.Savings;
-            accountCategoryControl2.Location = new Point(3, 124);
-            accountCategoryControl2.MainForm = null;
-            accountCategoryControl2.Margin = new Padding(3, 3, 3, 10);
-            accountCategoryControl2.Name = "accountCategoryControl2";
-            accountCategoryControl2.Size = new Size(1399, 108);
-            accountCategoryControl2.TabIndex = 1;
+            savingsControl.BackColor = Color.FromArgb(40, 240, 40);
+            savingsControl.Category = EAccountCategory.Savings;
+            savingsControl.Location = new Point(3, 152);
+            savingsControl.MainForm = null;
+            savingsControl.Margin = new Padding(3, 3, 3, 10);
+            savingsControl.Name = "savingsControl";
+            savingsControl.Size = new Size(1399, 108);
+            savingsControl.TabIndex = 1;
             // 
-            // accountCategoryControl3
+            // cdControl
             // 
-            accountCategoryControl3.BackColor = Color.FromArgb(220, 40, 50);
-            accountCategoryControl3.Category = EAccountCategory.CDs;
-            accountCategoryControl3.Location = new Point(3, 245);
-            accountCategoryControl3.MainForm = null;
-            accountCategoryControl3.Margin = new Padding(3, 3, 3, 10);
-            accountCategoryControl3.Name = "accountCategoryControl3";
-            accountCategoryControl3.Size = new Size(1399, 108);
-            accountCategoryControl3.TabIndex = 2;
+            cdControl.BackColor = Color.FromArgb(220, 40, 50);
+            cdControl.Category = EAccountCategory.CDs;
+            cdControl.Location = new Point(3, 273);
+            cdControl.MainForm = null;
+            cdControl.Margin = new Padding(3, 3, 3, 10);
+            cdControl.Name = "cdControl";
+            cdControl.Size = new Size(1399, 108);
+            cdControl.TabIndex = 2;
             // 
             // transferPanel
             // 
@@ -124,7 +125,7 @@
             transferPanel.Controls.Add(label6);
             transferPanel.Controls.Add(label7);
             transferPanel.Controls.Add(label8);
-            transferPanel.Location = new Point(1443, 576);
+            transferPanel.Location = new Point(1435, 589);
             transferPanel.Margin = new Padding(3, 2, 3, 2);
             transferPanel.Name = "transferPanel";
             transferPanel.Size = new Size(450, 349);
@@ -153,7 +154,7 @@
             submitTransferButton.TabIndex = 15;
             submitTransferButton.Text = "Submit Transfer";
             submitTransferButton.UseVisualStyleBackColor = false;
-            submitTransferButton.Click += button1_Click;
+            submitTransferButton.Click += submitTransferButton_Click;
             // 
             // transferTB
             // 
@@ -255,7 +256,7 @@
             pieChartPanel.Controls.Add(label4);
             pieChartPanel.Controls.Add(label3);
             pieChartPanel.Controls.Add(label2);
-            pieChartPanel.Location = new Point(1443, 29);
+            pieChartPanel.Location = new Point(1435, 42);
             pieChartPanel.Margin = new Padding(3, 2, 3, 8);
             pieChartPanel.Name = "pieChartPanel";
             pieChartPanel.Size = new Size(450, 526);
@@ -328,13 +329,13 @@
             ClientSize = new Size(1924, 929);
             Controls.Add(pieChartPanel);
             Controls.Add(accountsPanel);
-            Controls.Add(bankAccountsLabel);
             Controls.Add(transferPanel);
             Margin = new Padding(3, 2, 3, 2);
             Name = "MainForm";
             Text = "Form1";
             Load += MainForm_Load;
             accountsPanel.ResumeLayout(false);
+            accountsPanel.PerformLayout();
             transferPanel.ResumeLayout(false);
             transferPanel.PerformLayout();
             submitTransferPanel.ResumeLayout(false);
@@ -342,14 +343,10 @@
             pieChartPanel.ResumeLayout(false);
             pieChartPanel.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private AccountCategoryControl savingsControl;
-        private AccountCategoryControl cdControl;
-        private AccountCategoryControl checkingControl;
         private Label bankAccountsLabel;
         private FlowLayoutPanel accountsPanel;
         private Panel pieChartPanel;
@@ -368,9 +365,9 @@
         private LayeredComboBox fromAccountBox;
         private LayeredComboBox toAccountBox;
         private Label label6;
-        private AccountCategoryControl accountCategoryControl1;
-        private AccountCategoryControl accountCategoryControl2;
-        private AccountCategoryControl accountCategoryControl3;
+        private AccountCategoryControl checkingControl;
+        private AccountCategoryControl savingsControl;
+        private AccountCategoryControl cdControl;
         private Label errorLabel;
         private Panel submitTransferPanel;
         private Button submitTransferButton;

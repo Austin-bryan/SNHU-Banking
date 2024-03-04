@@ -3,7 +3,6 @@ namespace SNHU_Banking;
 public partial class MainForm : Form
 {
     private readonly int transferPanelStartHeight;
-    private AccountCategoryControl accountCategoryControl;
 
     private static readonly Random rand  = new();
     private static DateTime _currentDate = DateTime.Today;
@@ -71,23 +70,22 @@ public partial class MainForm : Form
         toAccountBox.AddCategory("CDs");
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private void submitTransferButton_Click(object sender, EventArgs e)
     {
-        if (decimal.TryParse(transferTB.Text, out decimal transferAmount))
+        if (!decimal.TryParse(transferTB.Text, out decimal transferAmount))
         {
-            BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);
-            BankAccount toAccount = BankAccount.GetBankAccount(toAccountBox.Text);
-
-            if (fromAccount.TryWithdraw(transferAmount))
-            {
-                toAccount.Deposit(transferAmount);
-                toAccount.BankAccountControl.UpdateBalance();
-                fromAccount.BankAccountControl.UpdateBalance();
-
-            }
+            MessageBox.Show("Must enter a number.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
         }
-        else MessageBox.Show("Must enter a number.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        BankAccount fromAccount = BankAccount.GetBankAccount(fromAccountBox.Text);
+        BankAccount toAccount = BankAccount.GetBankAccount(toAccountBox.Text);
 
+        if (!fromAccount.TryWithdraw(transferAmount))
+            return;
+        
+        toAccount.Deposit(transferAmount);
+        toAccount.BankAccountControl.UpdateBalance();
+        fromAccount.BankAccountControl.UpdateBalance();
     }
     private void transferTB_Leave(object sender, EventArgs e) => transferTB.Text = ThemePalette.OnMoneyTextbox_Leave(transferTB.Text);
     private void transferTB_KeyDown(object sender, KeyEventArgs e)
@@ -125,4 +123,17 @@ public partial class MainForm : Form
     }
 
     private void transferTB_KeyPress(object sender, KeyPressEventArgs e) => ThemePalette.OnMoneyTextBox_KeyPress(sender, e);
+
+    public void UpdateAccounts()
+    {
+        accountsPanel.Controls
+            .ToList()
+            .OfType<AccountCategoryControl>()
+            .ToList()
+            .ForEach(acc =>
+            {
+                acc.UpdateAccounts();
+                acc.UpdateTotals();
+            });
+    }
 }

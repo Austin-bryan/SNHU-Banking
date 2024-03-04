@@ -22,6 +22,7 @@ public partial class AccountCategoryControl : UserControl
     public event BalanceChangeHandler OnBalanceChange;
 
     private MainForm mainForm;
+    public static bool AccountFormOpen { get; set; }
     private readonly BalancePreview balancePreview;
 
     public AccountCategoryControl()
@@ -47,6 +48,7 @@ public partial class AccountCategoryControl : UserControl
 
     public void AddAccount(BankAccount account)
     {
+        AccountFormOpen = false;
         BankAccountControl bac = new(account);
         BankAccounts.Add(bac);
         int shiftAmount = (int)(bac.Height * 1.475);
@@ -58,7 +60,7 @@ public partial class AccountCategoryControl : UserControl
         Height += shiftAmount;
         UpdateTotals();
     }
-    private void UpdateTotals()
+    public void UpdateTotals()
     {
         Total = 0;
         decimal ytd = 0;
@@ -76,6 +78,9 @@ public partial class AccountCategoryControl : UserControl
     }
     private void newAccountBtn_Click(object sender, EventArgs e)
     {
+        if (AccountFormOpen) 
+            return;
+        AccountFormOpen = true;
         NewAccountForm nac = new(this)
         {
             Owner = (MainForm)Parent.Parent
@@ -83,4 +88,6 @@ public partial class AccountCategoryControl : UserControl
         nac.Show();
         nac.Select(Category);
     }
+
+    public void UpdateAccounts() => BankAccounts.ForEach(ba => ba.UpdateBalance());
 }

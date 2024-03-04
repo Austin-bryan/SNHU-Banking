@@ -174,6 +174,7 @@
             Controls.Add(backgroundPanel);
             Controls.Add(sideBackground);
             Name = "NewAccountForm";
+            FormClosing += NewAccountForm_FormClosing;
             ((System.ComponentModel.ISupportInitialize)backgroundPanel).EndInit();
             ((System.ComponentModel.ISupportInitialize)sideBackground).EndInit();
             ResumeLayout(false);

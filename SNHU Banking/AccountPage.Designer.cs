@@ -305,7 +305,7 @@
             transferButton.BackColor = Color.FromArgb(50, 150, 50);
             transferButton.FlatAppearance.BorderSize = 0;
             transferButton.FlatStyle = FlatStyle.Flat;
-            transferButton.ForeColor = Color.Black;
+            transferButton.ForeColor = Color.White;
             transferButton.Location = new Point(11, 117);
             transferButton.Margin = new Padding(10);
             transferButton.Name = "transferButton";
@@ -328,6 +328,7 @@
             transferTB.TabIndex = 4;
             transferTB.Text = "0.00";
             transferTB.TextAlign = HorizontalAlignment.Center;
+            transferTB.KeyDown += transferTB_KeyDown;
             transferTB.KeyPress += transferTB_KeyPress;
             transferTB.Leave += transferTB_Leave;
             // 
@@ -336,7 +337,7 @@
             depositButton.BackColor = Color.FromArgb(50, 150, 50);
             depositButton.FlatAppearance.BorderSize = 0;
             depositButton.FlatStyle = FlatStyle.Flat;
-            depositButton.ForeColor = Color.Black;
+            depositButton.ForeColor = Color.White;
             depositButton.Location = new Point(220, 46);
             depositButton.Margin = new Padding(10);
             depositButton.Name = "depositButton";

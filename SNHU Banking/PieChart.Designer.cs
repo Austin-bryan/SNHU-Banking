@@ -28,16 +28,32 @@ partial class PieChart
     /// </summary>
     private void InitializeComponent()
     {
+        noAccountsLabel = new Label();
         SuspendLayout();
+        // 
+        // noAccountsLabel
+        // 
+        noAccountsLabel.AutoSize = true;
+        noAccountsLabel.Font = new Font("Segoe UI", 15F);
+        noAccountsLabel.ForeColor = Color.White;
+        noAccountsLabel.Location = new Point(49, 124);
+        noAccountsLabel.Name = "noAccountsLabel";
+        noAccountsLabel.Size = new Size(197, 28);
+        noAccountsLabel.TabIndex = 0;
+        noAccountsLabel.Text = "No Accounts Created";
         // 
         // PieChart
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(noAccountsLabel);
         Name = "PieChart";
         Size = new Size(427, 394);
         ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
+
+    private Label noAccountsLabel;
 }

@@ -18,7 +18,11 @@ public partial class PieChart : UserControl
         DrawPieChart();
     }
 
-    private void OnBalanceChange(decimal balance, decimal ytd) => DrawPieChart();
+    private void OnBalanceChange(decimal balance, decimal ytd)
+    {
+        noAccountsLabel.Hide();
+        DrawPieChart();
+    }
 
     private void DrawPieChart()
     {
