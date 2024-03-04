@@ -2,6 +2,8 @@
 
 namespace SNHU_Banking;
 
+// Purpose: Since my application is black themed, I wanted a black title bar, but didn't want to create a custom title bar again. 
+// This is used to achieve that. 
 public static class DarkStylizer
 {
     [DllImport("dwmapi.dll")]
