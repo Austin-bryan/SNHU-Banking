@@ -26,7 +26,7 @@ public partial class BankAccountControl : UserControl
     {
         balanceLabel.Text = ThemePalette.FormatMoney(bankAccount.Balance);
         ytdLabel.Text = ThemePalette.FormatMoney(bankAccount.YTD);
-        bankAccount.Owner.UpdateTotals();
+        bankAccount.Owner.UpdateAmounts();
     }
     public void Deposit(decimal amount)     => bankAccount.Deposit(amount);
     public bool TryWithdraw(decimal amount) => bankAccount.TryWithdraw(amount);

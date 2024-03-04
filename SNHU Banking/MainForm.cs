@@ -132,7 +132,7 @@ public partial class MainForm : Form
             .ForEach(acc =>
             {
                 acc.UpdateAccounts();
-                acc.UpdateTotals();
+                acc.UpdateAmounts();
             });
     }
 }

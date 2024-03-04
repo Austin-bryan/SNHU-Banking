@@ -8,19 +8,19 @@ public enum EAccountCategory { Checking, Savings, CDs };
  */
 public partial class AccountCategoryControl : UserControl
 {
+    public static bool AccountFormOpen { get; set; }    // The user can open a dialog to create an account. This ensures only one is open at a time.
+
     public decimal Total { get; private set; }
     public EAccountCategory Category { get; set; }
     public List<BankAccountControl> BankAccounts { get; private set; } = [];
 
     public event BalanceChangeHandler OnBalanceChange;
-
-    public static bool AccountFormOpen { get; set; }
     private readonly BalancePreview balancePreview;
 
     public AccountCategoryControl()
     {
         InitializeComponent();
-        balancePreview = new BalancePreview(this);
+        balancePreview = new BalancePreview(this);  // Shows the balance amount in the pie chart
     }
 
     protected override void OnPaint(PaintEventArgs e)
@@ -29,32 +29,38 @@ public partial class AccountCategoryControl : UserControl
         const int borderThickness = 1;
         base.OnPaint(e);
 
+        // Sets the color splash based on the account category
         categoryLabel.Text      = Category.ToString().ToUpper();
         var (fore, back)        = ThemePalette.GetAccountTheme(Category);
         BackColor               = back;
         newAccountBtn.BackColor = back;
         newAccountBtn.ForeColor = fore;
-        mainPanel.Location      = new(colorSide, borderThickness);
-        mainPanel.Size          = new(Size.Width - borderThickness - colorSide, Size.Height - borderThickness * 2);
+
+        // Sets the border dynamically, allowed me to adjust the width and height
+        mainPanel.Location = new(colorSide, borderThickness);
+        mainPanel.Size     = new(Size.Width - borderThickness - colorSide, Size.Height - borderThickness * 2);
 
         ((MainForm)ParentForm).AddBalancePreview(balancePreview);
     }
 
     public void AddAccount(BankAccount account)
     {
-        AccountFormOpen = false;
+        // And and show the newly created account
         BankAccountControl bac = new(account);
         BankAccounts.Add(bac);
+
+        // The UI must be elongated to show the bank account
         int shiftAmount = (int)(bac.Height * 1.475);
         
+        // Since I'm using a flow panel, all the account categories below will automatically move down
         accountsFlowPanel.Controls.Add(bac);
         accountsFlowPanel.Height += shiftAmount;
         totalPanel.Location       = new(totalPanel.Location.X, totalPanel.Location.Y + shiftAmount);
         
         Height += shiftAmount;
-        UpdateTotals();
+        UpdateAmounts();     // New account has made total and YTD out of date, update
     }
-    public void UpdateTotals()
+    public void UpdateAmounts()
     {
         Total = 0;
         decimal ytd = 0;
@@ -72,9 +78,12 @@ public partial class AccountCategoryControl : UserControl
     }
     private void newAccountBtn_Click(object sender, EventArgs e)
     {
-        if (AccountFormOpen) 
+        // Ensures only one window is open at a time
+        if (AccountFormOpen)        
             return;
         AccountFormOpen = true;
+
+        // Open new window
         NewAccountForm nac = new(this)
         {
             Owner = (MainForm)Parent.Parent
