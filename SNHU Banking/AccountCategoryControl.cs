@@ -1,6 +1,7 @@
 ﻿namespace SNHU_Banking;
 
 public delegate void BalanceChangeHandler(decimal balance, decimal ytd);
+public enum EAccountCategory { Checking, Savings, CDs };
 
 public partial class AccountCategoryControl : UserControl
 {
