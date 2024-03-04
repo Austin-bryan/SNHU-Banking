@@ -20,7 +20,6 @@ public partial class MainForm : Form
             .OfType<AccountCategoryControl>()
             .ToList().ForEach(acc =>
             {
-                acc.MainForm = this;
                 acc.OnBalanceChange += Account_OnBalanceChange;
                 pieChart.AddAccountCategoryControl(acc);
             });

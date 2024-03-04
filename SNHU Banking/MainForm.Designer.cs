@@ -87,7 +87,6 @@
             checkingControl.BackColor = Color.FromArgb(75, 110, 255);
             checkingControl.Category = EAccountCategory.Checking;
             checkingControl.Location = new Point(3, 31);
-            checkingControl.MainForm = null;
             checkingControl.Margin = new Padding(3, 3, 3, 10);
             checkingControl.Name = "checkingControl";
             checkingControl.Size = new Size(1399, 108);
@@ -98,7 +97,6 @@
             savingsControl.BackColor = Color.FromArgb(40, 240, 40);
             savingsControl.Category = EAccountCategory.Savings;
             savingsControl.Location = new Point(3, 152);
-            savingsControl.MainForm = null;
             savingsControl.Margin = new Padding(3, 3, 3, 10);
             savingsControl.Name = "savingsControl";
             savingsControl.Size = new Size(1399, 108);
@@ -109,7 +107,6 @@
             cdControl.BackColor = Color.FromArgb(220, 40, 50);
             cdControl.Category = EAccountCategory.CDs;
             cdControl.Location = new Point(3, 273);
-            cdControl.MainForm = null;
             cdControl.Margin = new Padding(3, 3, 3, 10);
             cdControl.Name = "cdControl";
             cdControl.Size = new Size(1399, 108);

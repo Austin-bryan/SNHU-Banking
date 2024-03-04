@@ -3,26 +3,17 @@
 public delegate void BalanceChangeHandler(decimal balance, decimal ytd);
 public enum EAccountCategory { Checking, Savings, CDs };
 
+/* Purpose: AccountCategoryControl holds all bank accounts of a certain account category.
+ * It maintains the add of accounts, and updating their values. It also displays the totals from all accounts.
+ */
 public partial class AccountCategoryControl : UserControl
 {
     public decimal Total { get; private set; }
     public EAccountCategory Category { get; set; }
     public List<BankAccountControl> BankAccounts { get; private set; } = [];
 
-    public MainForm MainForm
-    {
-        get => mainForm;
-        set
-        {
-            if (mainForm != null)
-                return;
-            mainForm = value;
-            mainForm?.AddBalancePreview(balancePreview);
-        }
-    }
     public event BalanceChangeHandler OnBalanceChange;
 
-    private MainForm mainForm;
     public static bool AccountFormOpen { get; set; }
     private readonly BalancePreview balancePreview;
 
@@ -45,6 +36,8 @@ public partial class AccountCategoryControl : UserControl
         newAccountBtn.ForeColor = fore;
         mainPanel.Location      = new(colorSide, borderThickness);
         mainPanel.Size          = new(Size.Width - borderThickness - colorSide, Size.Height - borderThickness * 2);
+
+        ((MainForm)ParentForm).AddBalancePreview(balancePreview);
     }
 
     public void AddAccount(BankAccount account)
