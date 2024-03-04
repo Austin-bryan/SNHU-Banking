@@ -14,18 +14,28 @@ public partial class BankAccountControl : UserControl
     {
         InitializeComponent();
 
-        (bankAccount, nameLabel.Text, ytdLabel.Text, yieldLabel.Text) = (account, account.Name, "$0.00", account.Yield + "%");
+        account.AddInterest(account.Balance);
+
+        (bankAccount, nameLabel.Text, ytdLabel.Text, yieldLabel.Text) = 
+            (account, account.Name, ThemePalette.FormatMoney(account.Balance), account.Yield + "%");
         bankAccount.BankAccountControl = this;
         UpdateBalance();
     }
 
     public void UpdateBalance()
     {
-        balanceLabel.Text = string.Format("${0:#,##0.00}", bankAccount.Balance);
+        balanceLabel.Text = ThemePalette.FormatMoney(bankAccount.Balance);
+        ytdLabel.Text = ThemePalette.FormatMoney(bankAccount.YTD);
         bankAccount.Owner.UpdateTotals();
     }
     public void Deposit(decimal amount)     => bankAccount.Deposit(amount);
     public bool TryWithdraw(decimal amount) => bankAccount.TryWithdraw(amount);
+    public void AddInterest(decimal amount)
+    {
+        bankAccount.AddInterest(amount);
+        ytdLabel.Text = ThemePalette.FormatMoney(amount);
+    }
 
     private void nameLabel_Click(object sender, EventArgs e) => (ParentForm as MainForm).SwitchPages(true, this);
+
 }

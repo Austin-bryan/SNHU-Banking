@@ -45,10 +45,15 @@ public partial class AccountPage : UserControl
             if (amount == 0)
                 return;
             if (transferMode == ETransferMode.Deposit)
-                 bankAccountControl.Deposit(amount);
+            {
+                bankAccountControl.Deposit(amount);
+                bankAccountControl.AddInterest(amount);
+                ytdLabel.Text = ThemePalette.FormatMoney(bankAccountControl.YTD);
+            }
             else bankAccountControl.TryWithdraw(amount);
 
             CreateTransationControl(bankAccountControl.Transactions.Last());
+
             balanceLabel.Text = ThemePalette.FormatMoney(bankAccountControl.Balance);
         }
         else MessageBox.Show("Must enter a number.", "SNHU Banking", MessageBoxButtons.OK, MessageBoxIcon.Error);

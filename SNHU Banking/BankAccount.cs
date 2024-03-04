@@ -1,4 +1,5 @@
-﻿namespace SNHU_Banking;
+﻿
+namespace SNHU_Banking;
 
 public class BankAccount(string name, decimal balance, AccountCategoryControl accountCategoryControl, decimal yield)
 {
@@ -49,4 +50,6 @@ public class BankAccount(string name, decimal balance, AccountCategoryControl ac
         if (Transactions.Count > 100)
             Transactions.RemoveAt(0);
     }
+
+    public void AddInterest(decimal amount) => YTD += amount * Yield / 365.25m;
 }
